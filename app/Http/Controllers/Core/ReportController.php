@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Core;
 use App\Dao\Enums\Core\BooleanType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\DeleteRequest;
-use App\Http\Requests\CoreDeleteRequest;
 use App\Http\Services\Master\DeleteService;
 use Coderello\SharedData\Facades\SharedData;
 use Plugins\Response;

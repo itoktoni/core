@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\BooleanType;
-use App\Http\Controllers\Core\Controller;
+use App\Http\Controllers\Controller;
 
 class MinimalController extends Controller
 {

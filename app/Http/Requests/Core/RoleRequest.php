@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\Core;
 
-use App\Dao\Models\Roles;
-use App\Dao\Models\SystemRole;
 use App\Dao\Traits\ValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
 
 class RoleRequest extends FormRequest
 {

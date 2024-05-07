@@ -7,6 +7,7 @@ use App\Dao\Models\Links;
 use App\Dao\Models\Routes;
 use App\Dao\Models\SystemLink;
 use App\Dao\Traits\ValidationTrait;
+use App\Facades\Model\LinkModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -24,8 +25,8 @@ class LinkRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            SystemLink::field_primary() =>  $this->{SystemLink::field_primary()} ?? Str::snake($this->{SystemLink::field_name()}),
-            SystemLink::field_url() =>  $this->{SystemLink::field_url()} ?? Str::snake($this->{SystemLink::field_name()})
+            LinkModel::field_primary() =>  $this->{LinkModel::field_primary()} ?? Str::snake($this->{LinkModel::field_name()}),
+            LinkModel::field_url() =>  $this->{LinkModel::field_url()} ?? Str::snake($this->{LinkModel::field_name()})
         ]);
     }
 

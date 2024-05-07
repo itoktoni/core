@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\BooleanType;
-use App\Http\Requests\CoreSettingRequest;
 use App\Http\Services\Core\CreateSettingService;
 use Plugins\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Core\SettingRequest;
 
 class SettingController extends Controller
 {

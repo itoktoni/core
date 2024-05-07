@@ -7,6 +7,7 @@ use App\Dao\Models\Menus;
 use App\Dao\Models\Routes;
 use App\Dao\Models\SystemMenu;
 use App\Dao\Traits\ValidationTrait;
+use App\Facades\Model\MenuModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
@@ -25,9 +26,9 @@ class MenuRequest extends FormRequest
     public function prepareForValidation()
     {
         $merge = [];
-        if(empty($this->{SystemMenu::field_url()})){
+        if(empty($this->{MenuModel::field_url()})){
             $merge = [
-                SystemMenu::field_url() =>  $this->{SystemMenu::field_url()} ?? Str::snake($this->{SystemMenu::field_name()})
+                MenuModel::field_url() =>  $this->{MenuModel::field_url()} ?? Str::snake($this->{MenuModel::field_name()})
             ];
         }
 

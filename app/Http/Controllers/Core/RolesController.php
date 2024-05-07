@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Core;
 use App\Dao\Enums\Core\LevelType;
 use App\Dao\Repositories\Core\RolesRepository;
 use App\Facades\Model\GroupModel;
-use App\Http\Requests\CoreRoleRequest;
+use App\Http\Requests\Core\RoleRequest;
 use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
 use App\Http\Services\Core\UpdateRoleService;
