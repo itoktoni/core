@@ -2,17 +2,24 @@
 
 namespace App\Charts;
 
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-class dashboard extends Chart
+class Dashboard
 {
-    /**
-     * Initializes the chart.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $chart;
+
+    public function __construct(LarapexChart $chart)
     {
-        parent::__construct();
+        $this->chart = $chart;
+    }
+
+    public function build()
+    {
+        return $this->chart->barChart()
+    ->setTitle('San Francisco vs Boston.')
+    ->setSubtitle('Wins during season 2021.')
+    ->addData('San Francisco', [6, 9, 3, 4, 10, 8])
+    ->addData('Boston', [7, 3, 8, 2, 6, 4])
+    ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June']);
     }
 }

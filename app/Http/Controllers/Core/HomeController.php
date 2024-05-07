@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
+use App\Charts\Dashboard;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -24,13 +25,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Dashboard $chart)
     {
         if(auth()->check() && auth()->user()->active == false){
             return redirect()->route('login');
         }
 
-        return view('pages.home.home');
+        return view('pages.home.home', [
+            'chart' => $chart->build(),
+        ]);
     }
 
     public function console()
