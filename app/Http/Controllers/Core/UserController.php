@@ -21,6 +21,7 @@ class UserController extends MasterController
     {
         self::$repository = self::$repository ?? $repository;
         self::$service = self::$service ?? $service;
+        self::$is_core = true;
     }
 
     protected function beforeForm()

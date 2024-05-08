@@ -13,6 +13,7 @@ abstract class MasterController extends Controller
     public static $service;
     public static $repository;
     public static $template;
+    public static $is_core = false;
     public static $share = [];
 
     protected function beforeForm(){}
@@ -52,7 +53,7 @@ abstract class MasterController extends Controller
     public function getTable()
     {
         $data = $this->getData();
-        return moduleView(modulePathTable(), [
+        return moduleView(modulePathTable(core: self::$is_core), [
             'data' => $data,
             'fields' => self::$repository->model->getShowField(),
         ]);
@@ -77,14 +78,14 @@ abstract class MasterController extends Controller
     {
         $this->beforeForm();
         $this->beforeCreate();
-        return moduleView(modulePathForm(), $this->share());
+        return moduleView(modulePathForm(core: self::$is_core), $this->share());
     }
 
     public function getUpdate($code)
     {
         $this->beforeForm();
         $this->beforeUpdate($code);
-        return moduleView(modulePathForm(), $this->share([
+        return moduleView(modulePathForm(core: self::$is_core), $this->share([
             'model' => $this->get($code),
         ]));
     }

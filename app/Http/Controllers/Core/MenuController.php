@@ -20,6 +20,7 @@ class MenuController extends MasterController
     {
         self::$repository = self::$repository ?? $repository;
         self::$service = self::$service ?? $service;
+        self::$is_core = true;
     }
 
     protected function beforeForm()
@@ -73,7 +74,7 @@ class MenuController extends MasterController
             $action = Helper::getFunction($data->field_controller, $data->field_primary);
         }
 
-        return moduleView(modulePathForm(), $this->share([
+        return moduleView(modulePathForm(core: self::$is_core), $this->share([
             'model' => $data,
             'selected' => $selected,
             'action' => $action,

@@ -46,13 +46,15 @@ function modulePath($name = null)
     return !empty($name) ? $name : moduleCode($name);
 }
 
-function modulePathTable($name = null)
+function modulePathTable($name = null, $core = false)
 {
+    $path = $core ? 'core.' : 'pages.';
+
     if ($name) {
-        return 'pages.' . $name . '.table';
+        return $path . $name . '.table';
     }
 
-    return 'pages.' . moduleCode() . '.table';
+    return $path . moduleCode() . '.table';
 }
 
 function modulePathPrint($name = null)
@@ -64,21 +66,23 @@ function modulePathPrint($name = null)
     return 'pages.master.print';
 }
 
-function modulePathForm($name = null, $template = null)
+function modulePathForm($name = null, $template = null, $core = false)
 {
+    $path = $core ? 'core.' : 'pages.';
+
     if ($template && $name) {
-        return 'pages.' . $template . '.' . $name;
+        return $path . $template . '.' . $name;
     }
 
     if ($name) {
-        return 'pages.' . moduleCode() . '.' . $name;
+        return $path . moduleCode() . '.' . $name;
     }
 
     if ($template) {
-        return 'pages.' . $template . '.form';
+        return $path . $template . '.form';
     }
 
-    return 'pages.' . moduleCode() . '.form';
+    return $path . moduleCode() . '.form';
 }
 
 function moduleView($template, $data = []){

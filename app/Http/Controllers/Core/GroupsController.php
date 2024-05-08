@@ -16,6 +16,7 @@ class GroupsController extends MasterController
     {
         self::$repository = self::$repository ?? $repository;
         self::$service = self::$service ?? $service;
+        self::$is_core = true;
     }
 
     public function postCreate(GroupsRequest $request, CreateService $service)
@@ -47,7 +48,7 @@ class GroupsController extends MasterController
         $data = $this->get($code, ['has_menu', 'has_menu.has_link']);
         $selected = $data->has_menu->pluck('system_menu_code') ?? [];
 
-        return moduleView(modulePathForm(), $this->share([
+        return moduleView(modulePathForm(core: self::$is_core), $this->share([
             'model' => $data,
             'selected' => $selected,
         ]));

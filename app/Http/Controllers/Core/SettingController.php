@@ -21,7 +21,7 @@ class SettingController extends Controller
 
     public function getCreate()
     {
-        return moduleView(modulePathForm(), $this->share());
+        return moduleView(modulePathForm(core: true), $this->share());
     }
 
     public function postCreate(SettingRequest $request, CreateSettingService $service)

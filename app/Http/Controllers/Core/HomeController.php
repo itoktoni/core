@@ -31,7 +31,7 @@ class HomeController extends Controller
             return redirect()->route('login');
         }
 
-        return view('pages.home.home', [
+        return view('core.home.dashboard', [
             'chart' => $chart->build(),
         ]);
     }

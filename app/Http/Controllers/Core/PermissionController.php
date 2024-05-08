@@ -22,6 +22,7 @@ class PermissionController extends MasterController
     {
         self::$repository = self::$repository ?? $repository;
         self::$service = self::$service ?? $service;
+        self::$is_core = true;
     }
 
     protected function beforeForm()
@@ -70,7 +71,7 @@ class PermissionController extends MasterController
         $data_action = Core::getMethod($data->field_controller, $module) ?? [];
         $action = $data_action->pluck('primary', 'action')->toArray();
 
-        return moduleView(modulePathForm(), $this->share([
+        return moduleView(modulePathForm(core: self::$is_core), $this->share([
             'model' => $data,
             'action' => array_merge($action, [$module.'.empty' => 'Empty Data', $module.'.sort' => 'Sort Data']),
         ]));
