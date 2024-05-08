@@ -6,18 +6,18 @@ use App\Dao\Enums\Core\LevelType;
 use App\Facades\Model\PermisionModel;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
-use App\Http\Requests\Core\GeneralRequest;
-use App\Http\Requests\Core\MenuRequest;
+use App\Http\Function\CreateFunction;
+use App\Http\Function\UpdateFunction;
 use App\Http\Requests\Core\SortRequest;
-use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
-use App\Http\Services\Master\UpdateService;
 use Plugins\Core;
 use Plugins\Helper;
 use Plugins\Response;
 
 class PermissionController extends MasterController
 {
+    use CreateFunction, UpdateFunction;
+
     public function __construct(PermisionModel $model, SingleService $service)
     {
         $this->model = $model::getModel();
@@ -40,18 +40,6 @@ class PermissionController extends MasterController
             'file' => $files,
             'action' => [],
         ];
-    }
-
-    public function postCreate(MenuRequest $request, CreateService $service)
-    {
-        $data = $service->save($this->model, $request);
-        return Response::redirectBack($data);
-    }
-
-    public function postUpdate($code, GeneralRequest $request, UpdateService $service)
-    {
-        $data = $service->update($this->model, $request, $code);
-        return Response::redirectBack($data);
     }
 
     public function postSort(SortRequest $request)

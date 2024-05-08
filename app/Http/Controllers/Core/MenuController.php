@@ -6,6 +6,8 @@ use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\MenuType;
 use App\Facades\Model\LinkModel;
 use App\Facades\Model\MenuModel;
+use App\Http\Function\CreateFunction;
+use App\Http\Function\UpdateFunction;
 use App\Http\Requests\Core\MenuRequest;
 use App\Http\Requests\Core\SortRequest;
 use App\Http\Services\Master\CreateService;
