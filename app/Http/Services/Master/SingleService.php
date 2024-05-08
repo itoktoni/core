@@ -2,26 +2,25 @@
 
 namespace App\Http\Services\Master;
 
-use App\Dao\Interfaces\CrudInterface;
 use Plugins\Notes;
 use Plugins\Alert;
 
 class SingleService
 {
-    public function get(CrudInterface $repository, $code, $relation = false)
+    public function get($model, $code, $relation = false)
     {
         if(request()->wantsJson()){
-            return Notes::single($repository->singleRepository($code, $relation));
+            return Notes::single($model->singleRepository($code, $relation));
         }
-        return $repository->singleRepository($code, $relation);
+        return $model->singleRepository($code, $relation);
     }
 
-    public function delete(CrudInterface $repository, $code)
+    public function delete($model, $code)
     {
         $rules = ['code' => 'required'];
         request()->validate($rules, ['code.required' => 'Silahkan centang terlebih dahulu!']);
 
-        $check = $repository->deleteRepository($code);
+        $check = $model->deleteRepository($code);
         if ($check['status']) {
             Alert::delete();
         } else {
@@ -35,10 +34,10 @@ class SingleService
         return $check;
     }
 
-    public function sort($repository, $data)
+    public function sort($model, $data)
     {
         $check = false;
-        $model = $repository->model ?? false;
+        $model = $model->model ?? false;
         if($data && $model){
             foreach ($data as $key => $value) {
                 $check = $model::find($key)->update([$model->field_sort() => $value]);

@@ -36,6 +36,15 @@ class HomeController extends Controller
         ]);
     }
 
+    public function delete($code){
+        $navigation = session()->get('navigation');
+        if(!empty($navigation) && array_key_exists($code, $navigation)){
+            unset($navigation[$code]);
+            session()->put('navigation', $navigation);
+        }
+        return redirect()->back();
+    }
+
     public function console()
     {
         return LaravelWebConsole::show();

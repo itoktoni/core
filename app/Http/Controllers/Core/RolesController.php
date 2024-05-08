@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\LevelType;
-use App\Dao\Repositories\Core\RolesRepository;
 use App\Facades\Model\GroupModel;
+use App\Facades\Model\RoleModel;
 use App\Http\Requests\Core\RoleRequest;
 use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
@@ -13,9 +13,9 @@ use Plugins\Response;
 
 class RolesController extends MasterController
 {
-    public function __construct(RolesRepository $repository, SingleService $service)
+    public function __construct(RoleModel $model, SingleService $service)
     {
-        self::$repository = self::$repository ?? $repository;
+        $this->model = $model::getModel();
         self::$service = self::$service ?? $service;
         self::$is_core = true;
     }
@@ -33,13 +33,13 @@ class RolesController extends MasterController
 
     public function postCreate(RoleRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$repository, $request);
+        $data = $service->save($this->model, $request);
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, RoleRequest $request, UpdateRoleService $service)
     {
-        $data = $service->update(self::$repository, $request, $code);
+        $data = $service->update($this->model, $request, $code);
         return Response::redirectBack($data);
     }
 

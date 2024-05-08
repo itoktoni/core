@@ -5,6 +5,7 @@ namespace App\Dao\Models\Core;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemPermisionEntity;
+use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Facades\Model\PermisionModel;
@@ -17,7 +18,7 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class SystemPermision extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemPermisionEntity, ActiveTrait, ActiveTrait;
+    use Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, SystemPermisionEntity, ActiveTrait, ActiveTrait;
 
     protected $table = 'system_permision';
     protected $primaryKey = 'system_permision_id';

@@ -7,9 +7,9 @@ use Plugins\Alert;
 
 class UpdateService
 {
-    public function update(CrudInterface $repository, $data, $code)
+    public function update($model, $data, $code)
     {
-        $check = $repository->updateRepository($data->all(), $code);
+        $check = $model->updateRepository($data->all(), $code);
         if ($check['status']) {
             if(request()->wantsJson()){
                 return response()->json($check)->getData();

@@ -7,7 +7,7 @@ use Plugins\Alert;
 
 class DeleteService
 {
-    public function delete(CrudInterface $repository, $code)
+    public function delete($repository, $code)
     {
         $rules = ['code' => 'required'];
         request()->validate($rules, ['code.required' => 'Please select any data !']);

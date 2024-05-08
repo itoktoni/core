@@ -6,6 +6,7 @@ use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemLinkEntity;
 use App\Dao\Enums\Core\MenuType;
+use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
@@ -18,7 +19,7 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class SystemLink extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemLinkEntity, ActiveTrait, OptionTrait;
+    use Sortable, FilterQueryString, CrudRepository, Sanitizable, DataTableTrait, DefaultEntity, SystemLinkEntity, ActiveTrait, OptionTrait;
 
     protected $table = 'system_link';
     protected $primaryKey = 'system_link_code';

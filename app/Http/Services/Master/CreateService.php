@@ -7,11 +7,11 @@ use Plugins\Alert;
 
 class CreateService
 {
-    public function save(CrudInterface $repository, $data)
+    public function save($model, $data)
     {
         $check = false;
         try {
-            $check = $repository->saveRepository($data->all());
+            $check = $model->saveRepository($data->all());
             if(isset($check['status']) && $check['status']){
 
                 Alert::create();

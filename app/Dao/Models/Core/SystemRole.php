@@ -5,6 +5,7 @@ namespace App\Dao\Models\Core;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemRoleEntity;
+use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
 
 class SystemRole extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemRoleEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, CrudRepository, DefaultEntity, SystemRoleEntity, ActiveTrait, ActiveTrait, OptionTrait;
 
     protected $table = 'system_role';
     protected $primaryKey = 'system_role_code';

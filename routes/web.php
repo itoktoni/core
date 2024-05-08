@@ -1,12 +1,9 @@
 <?php
 
 use App\Dao\Enums\Core\MenuType;
-use App\Dao\Facades\EnvFacades;
 use App\Http\Controllers\Core\HomeController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Plugins\Query;
 
@@ -20,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
+Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')->middleware(['access'])->name('delete_url');
 Route::get('/doc', 'App\Http\Controllers\Core\HomeController@doc')->middleware(['access'])->name('doc');
 
 Route::match(['POST', 'GET'], 'change-password', 'App\Http\Controllers\Core\UserController@changePassword', ['name' => 'change-password'])->middleware('auth');

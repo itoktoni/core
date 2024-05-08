@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Core;
 
-use App\Dao\Repositories\Core\UserRepository;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\MasterController;
@@ -17,9 +16,9 @@ use Plugins\Response;
 
 class UserController extends MasterController
 {
-    public function __construct(UserRepository $repository, SingleService $service)
+    public function __construct(UserModel $model, SingleService $service)
     {
-        self::$repository = self::$repository ?? $repository;
+        $this->model = $model::getModel();
         self::$service = self::$service ?? $service;
         self::$is_core = true;
     }
@@ -35,13 +34,13 @@ class UserController extends MasterController
 
     public function postCreate(UserRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$repository, $request);
+        $data = $service->save($this->model, $request);
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, UserRequest $request, UpdateService $service)
     {
-        $data = $service->update(self::$repository, $request, $code);
+        $data = $service->update($this->model, $request, $code);
         return Response::redirectBack($data);
     }
 

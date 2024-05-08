@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\MenuType;
-use App\Dao\Repositories\Core\LinkRepository;
 use App\Facades\Model\LinkModel;
 use App\Http\Requests\Core\LinkRequest;
 use App\Http\Services\Master\CreateService;
@@ -15,9 +14,9 @@ use Plugins\Response;
 
 class LinkController extends MasterController
 {
-    public function __construct(LinkRepository $repository, SingleService $service)
+    public function __construct(LinkModel $model, SingleService $service)
     {
-        self::$repository = self::$repository ?? $repository;
+        $this->model = $model::getModel();
         self::$service = self::$service ?? $service;
         self::$is_core = true;
     }
@@ -46,13 +45,13 @@ class LinkController extends MasterController
 
     public function postCreate(LinkRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$repository, $request);
+        $data = $service->save($this->model, $request);
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, LinkRequest $request, UpdateService $service)
     {
-        $data = $service->update(self::$repository, $request, $code);
+        $data = $service->update($this->model, $request, $code);
         return Response::redirectBack($data);
     }
 

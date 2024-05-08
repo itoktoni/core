@@ -8,7 +8,7 @@ use App\Http\Requests\Core\DeleteRequest;
 use App\Http\Services\Master\DeleteService;
 use Plugins\Response;
 
-class MasterController extends Controller
+class CrudController extends Controller
 {
     public static $service;
     public $model;

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Dao\Interfaces\CrudInterface;
+use App\Dao\Models\Core\Category;
+use App\Dao\Repositories\Core\CategoryRepository;
 use App\Dao\Repositories\Core\GroupsRepository;
 use App\Dao\Repositories\Core\LinkRepository;
 use App\Dao\Repositories\Core\MasterRepository;
@@ -51,6 +53,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(RolesRepository::class, function(){
             return new RolesRepository(RoleModel::getModel());
+        });
+        $this->app->bind(CategoryRepository::class, function(){
+            return new CategoryRepository(new Category());
         });
     }
 

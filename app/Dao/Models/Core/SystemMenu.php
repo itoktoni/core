@@ -7,6 +7,7 @@ use App\Dao\Entities\Core\RoutesEntity;
 use App\Dao\Entities\Core\SystemMenuEntity;
 use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\MenuType;
+use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
@@ -19,7 +20,7 @@ use Illuminate\Support\Str;
 
 class SystemMenu extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, SystemMenuEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, SystemMenuEntity, ActiveTrait, ActiveTrait, OptionTrait;
 
     protected $table = 'system_menu';
     protected $primaryKey = 'system_menu_code';

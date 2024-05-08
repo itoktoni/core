@@ -5,6 +5,7 @@ namespace App\Dao\Models\Core;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\UserEntity;
+use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
@@ -20,7 +21,7 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
+    use Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -96,15 +97,17 @@ class User extends Authenticatable
         return $query;
     }
 
-    public static function boot()
+    public function dataRepository()
     {
-        parent::saving(function ($model) {
-            // $model->{User::field_role()} = $model->has_role->field_type ?? 0;
-        });
-        parent::boot();
-    }
+        $query = $this
+            ->select($this->getSelectedField())
+            ->leftJoinRelationship('has_role')
+            ->active()
+            ->sortable()
+            ->filter();
 
-    // public function system_role_name($query, $value) {
-    //     return $query->where('name', '!=', $value);
-    // }
+        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));
+
+        return $query;
+    }
 }

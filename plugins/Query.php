@@ -40,6 +40,7 @@ class Query
                 ->orderBy('system_group_sort', 'DESC')
                 ->get();
             Cache::put('groups', $groups);
+
         } catch (\Throwable$th) {
             throw $th;
         }

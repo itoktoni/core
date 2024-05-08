@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\LevelType;
-use App\Dao\Repositories\Core\PermisionRepository;
+use App\Facades\Model\PermisionModel;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
 use App\Http\Requests\Core\GeneralRequest;
@@ -18,9 +18,9 @@ use Plugins\Response;
 
 class PermissionController extends MasterController
 {
-    public function __construct(PermisionRepository $repository, SingleService $service)
+    public function __construct(PermisionModel $model, SingleService $service)
     {
-        self::$repository = self::$repository ?? $repository;
+        $this->model = $model::getModel();
         self::$service = self::$service ?? $service;
         self::$is_core = true;
     }
@@ -44,13 +44,13 @@ class PermissionController extends MasterController
 
     public function postCreate(MenuRequest $request, CreateService $service)
     {
-        $data = $service->save(self::$repository, $request);
+        $data = $service->save($this->model, $request);
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, GeneralRequest $request, UpdateService $service)
     {
-        $data = $service->update(self::$repository, $request, $code);
+        $data = $service->update($this->model, $request, $code);
         return Response::redirectBack($data);
     }
 

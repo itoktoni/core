@@ -13,7 +13,7 @@ use Plugins\Template;
 class ReportController extends Controller
 {
     public static $service;
-    public static $repository;
+    public static $model;
     public static $template;
     public static $share = [];
 
@@ -32,7 +32,7 @@ class ReportController extends Controller
 
     public function getData()
     {
-        $query = self::$repository->dataRepository();
+        $query = $this->model->dataRepository();
         return $query;
     }
 
@@ -41,7 +41,7 @@ class ReportController extends Controller
         $data = $this->getData();
         return view(Template::table(SharedData::get('template')))->with($this->share([
             'data' => $data,
-            'fields' => self::$repository->model->getShowField(),
+            'fields' => $this->model->model->getShowField(),
         ]));
     }
 
@@ -65,15 +65,15 @@ class ReportController extends Controller
     {
         $relation = $relation ?? request()->get('relation');
         if ($relation) {
-            return self::$service->get(self::$repository, $code, $relation);
+            return self::$service->get($this->model, $code, $relation);
         }
-        return self::$service->get(self::$repository, $code);
+        return self::$service->get($this->model, $code);
     }
 
     public function postDelete(DeleteRequest $request, DeleteService $service)
     {
         $code = $request->get('code');
-        $data = $service->delete(self::$repository, $code);
+        $data = $service->delete($this->model, $code);
         return Response::redirectBack($data);
     }
 }

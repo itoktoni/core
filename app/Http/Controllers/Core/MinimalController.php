@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 class MinimalController extends Controller
 {
     public static $service;
-    public static $repository;
+    public static $model;
     public static $template;
     public static $share = [];
 
