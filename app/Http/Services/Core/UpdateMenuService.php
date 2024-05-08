@@ -2,13 +2,12 @@
 
 namespace App\Http\Services\Core;
 
-use App\Dao\Interfaces\CrudInterface;
 use Illuminate\Support\Facades\Session;
 use Plugins\Alert;
 
 class UpdateMenuService
 {
-    public function update(CrudInterface $repository, $data, $code)
+    public function update($repository, $data, $code)
     {
         $check = $repository->updateRepository($data->all(), $code);
         if ($check['status']) {
