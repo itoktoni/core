@@ -1,13 +1,15 @@
 <x-layout>
-    <x-card>
-        <x-form :model="$model">
+    <x-form :model="$model">
+        <x-card>
             <x-action form="form" />
 
-            @bind($model)
-                <x-form-input col="6" name="category_name" />
-                <x-form-select col="6" name="category_active" :options="$status" />
-            @endbind
+            <div class="row">
+                @bind($model)
+                    <x-form-input col="6" name="category_name" />
+                    <x-form-select col="6" name="category_active" :options="$status" />
+                @endbind
+            </div>
 
-        </x-form>
-    </x-card>
+        </x-card>
+    </x-form>
 </x-layout>
