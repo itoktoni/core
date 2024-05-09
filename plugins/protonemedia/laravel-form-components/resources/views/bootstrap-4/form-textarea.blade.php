@@ -1,4 +1,4 @@
-<div class="{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
+<div class="form-group {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
     <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
         <textarea
         @if($isWired())
