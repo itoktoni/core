@@ -451,6 +451,12 @@
 	.stacktable {
 		width: 100%;
 	}
+
+	.table-container {
+		.card-body {
+			padding: 1rem 0px;
+		}
+	}
 }
 
 @media (max-width: 414px) {
@@ -522,12 +528,6 @@
 			display: none;
 		}
 	}
-
-	.card {
-		.card-body {
-			padding: 1rem 0px;
-		}
-	}
 }
 
 @media (max-width: 375px) {
@@ -540,14 +540,6 @@
 	.navigation {
 		width: 75%;
 	}
-
-
-	.card {
-		.card-body {
-			padding: 1rem 0px;
-		}
-	}
-
 }
 
 @media (max-width: 544px) {
@@ -563,7 +555,7 @@
 		text-align: right !important;
 	}
 
-	.card {
+	.table-container .card {
 		.card-body {
 			padding: 1rem 0px;
 		}

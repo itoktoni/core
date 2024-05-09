@@ -1,7 +1,7 @@
 
 <x-layout>
 
-    <x-card>
+    <x-card class="table-container">
 
         <x-form method="GET" action="{{ moduleRoute('getTable') }}">
             <x-filter toggle="Filter" :fields="$fields" />

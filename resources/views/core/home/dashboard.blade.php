@@ -78,12 +78,6 @@
     <script src="{{ @asset('vendor/larapex-charts/apexcharts.js') }}"></script>
     {{ $chart->script() }}
 
-    <style>
-        .apexcharts-legend{
-            z-index: 100 !important;
-            top: -450px !important;
-        }
-    </style>
     @endpush
 
 </x-layout>
