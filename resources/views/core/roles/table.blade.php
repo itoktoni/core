@@ -10,7 +10,7 @@
 
             <x-action/>
 
-            <div class="container">
+            <div class="container-fluid">
                 <div class="table-responsive" id="table_data">
                     <table class="table table-bordered table-striped">
                         <thead>

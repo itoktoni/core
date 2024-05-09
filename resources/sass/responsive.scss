@@ -1,17 +1,16 @@
 @media (min-width: 992px) {
-	.container-fluid{
+	.container-fluid {
 		padding-left: 0px;
 		padding-right: 0px;
-		padding-bottom: 2rem;
 	}
 
-	.page-header{
-		h4{
+	.page-header {
+		h4 {
 			margin-top: 5px;
 		}
 	}
 
-	.main-content{
+	.main-content {
 		padding-top: 90px;
 	}
 
@@ -129,7 +128,8 @@
 			}
 		}
 
-		.navigation-toggler, .navbar-toggler {
+		.navigation-toggler,
+		.navbar-toggler {
 			a {
 				background: none !important;
 			}
@@ -253,7 +253,7 @@
 				display: block;
 			}
 
-			& > .card {
+			&>.card {
 				box-shadow: 3px 0px 15px -10px black;
 				border-top-right-radius: 0;
 				border-bottom-right-radius: 0;
@@ -305,12 +305,12 @@
 		}
 	}
 
-	.page-header{
+	.page-header {
 		bottom: 0px !important;
 		padding: 0px 10px 30px 40px;
 	}
 
-	.btn-check-m{
+	.btn-check-m {
 		position: absolute;
 		left: 20px;
 		margin-top: 10px;
@@ -321,21 +321,21 @@
 		margin: 30px auto;
 	}
 
-	.header-container{
-		h4{
+	.header-container {
+		h4 {
 			position: absolute;
 			top: 25px;
 			right: 20px;
 			z-index: 999;
 		}
 
-		.header-action{
+		.header-action {
 			text-align: right;
 		}
 	}
 
-	.page-header{
-		margin-bottom:18px;
+	.page-header {
+		margin-bottom: 18px;
 		height: 55px;
 	}
 
@@ -349,7 +349,7 @@
 		.header-body {
 			position: static;
 
-			& > div:first-child ul li:not(.navigation-toggler) {
+			&>div:first-child ul li:not(.navigation-toggler) {
 				display: none;
 			}
 		}
@@ -405,7 +405,7 @@
 	}
 
 	.sidebar {
-		& > ul.nav {
+		&>ul.nav {
 			display: flex;
 
 			li.nav-item {
@@ -418,19 +418,12 @@
 		padding: 20px;
 		height: auto;
 
-		.card {
-			width: 100%;
-
-			.card-body {
-				padding: 30px;
-			}
-		}
 	}
 
 	.fc {
 		.fc-toolbar {
 			&.fc-header-toolbar {
-				& > div {
+				&>div {
 					float: none !important;
 
 					.fc-button-group {
@@ -451,7 +444,7 @@
 		}
 	}
 
-	.page-action{
+	.page-action {
 		width: 100% !important;
 	}
 
@@ -499,17 +492,17 @@
 		}
 	}
 
-	.wizard > .steps > ul > li {
+	.wizard>.steps>ul>li {
 		float: none;
 		width: 100%;
 		margin-bottom: 10px;
 	}
 
-	.wizard > .content {
+	.wizard>.content {
 		background: none;
 	}
 
-	.wizard > .content > .body {
+	.wizard>.content>.body {
 		position: static;
 		padding: 0;
 	}
@@ -529,6 +522,12 @@
 			display: none;
 		}
 	}
+
+	.card {
+		.card-body {
+			padding: 1rem 0px;
+		}
+	}
 }
 
 @media (max-width: 375px) {
@@ -542,17 +541,32 @@
 		width: 75%;
 	}
 
+
+	.card {
+		.card-body {
+			padding: 1rem 0px;
+		}
+	}
+
 }
 
 @media (max-width: 544px) {
 	.text-xs-center {
 		text-align: center !important;
 	}
+
 	.text-xs-left {
 		text-align: left !important;
 	}
+
 	.text-xs-right {
 		text-align: right !important;
+	}
+
+	.card {
+		.card-body {
+			padding: 1rem 0px;
+		}
 	}
 }
 
@@ -561,3 +575,4 @@
 		display: none;
 	}
 }
+
