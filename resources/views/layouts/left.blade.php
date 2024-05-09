@@ -37,7 +37,7 @@
 				<a class="icon" href="{{ url('env-editor') }}">
 					<i class="bi bi-toggles"></i>
 					<h5 class="text-center text-white">
-						Setting
+						Env Editor
 					</h5>
 				</a>
 			</li>
