@@ -13,7 +13,7 @@ class GeneralRequest extends FormRequest
 
     public function __construct()
     {
-        $this->model = request()->route()->getController()::$repository->model ?? false;
+        $this->model = request()->route()->getController()->model ?? false;
     }
 
     public function validation() : array

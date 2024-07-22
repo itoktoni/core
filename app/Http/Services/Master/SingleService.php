@@ -37,7 +37,6 @@ class SingleService
     public function sort($model, $data)
     {
         $check = false;
-        $model = $model->model ?? false;
         if($data && $model){
             foreach ($data as $key => $value) {
                 $check = $model::find($key)->update([$model->field_sort() => $value]);
