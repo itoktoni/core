@@ -10,6 +10,8 @@ use App\Dao\Models\Core\SystemGroup;
 use App\Providers\CacheableAuthUserServiceProvider;
 use App\Providers\FacadeServiceProviders;
 use Coderello\SharedData\Facades\SharedData;
+use GeoSot\EnvEditor\Facades\EnvEditor;
+use GeoSot\EnvEditor\ServiceProvider;
 use Plugins\Query;
 use Plugins\Template;
 use Plugins\Views;
@@ -199,6 +201,7 @@ return [
         LaravelWebConsoleServiceProvider::class,
         ProtoneMedia\LaravelFormComponents\Support\ServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        ServiceProvider::class,
         FacadeServiceProviders::class,
     ],
 
@@ -251,23 +254,15 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Enum' => BenSampo\Enum\EnumServiceProvider::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Template' => Template::class,
         'Views' => Views::class,
         'BooleanType' => BooleanType::class,
-        'ProcessType' => ProcessType::class,
-        'ObsesimanType' => ObsesimanType::class,
-        'TransactionType' => TransactionType::class,
-        'FilterType' => FilterType::class,
-        'BedaRsType' => BedaRsType::class,
-        'CuciType' => CuciType::class,
         'MenuType' => MenuType::class,
         'LevelType' => LevelType::class,
         'SharedData' => SharedData::class,
         'Query' => Query::class,
         'Str' => Str::class,
-        'Transaksi' => Transaksi::class,
-        'EnvEditor' => GeoSot\EnvEditor\Facades\EnvEditor::class,
+        'EnvEditor' => EnvEditor::class,
         'ModelGroup' => SystemGroup::class,
     ],
 

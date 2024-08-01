@@ -111,9 +111,17 @@
                         case 'delete':
                             return 'delete';
                         case 'edit':
-                            return 'patch';
+                            return 'post';
                         default:
                             return 'post'
+                    }
+                },
+                getRouteMethod() {
+                    switch (this.type) {
+                        case 'edit':
+                            return 'edit';
+                        default:
+                            return 'key'
                     }
                 },
                 makeReadOnly(arg = null) {

@@ -4,7 +4,7 @@ namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
-use App\Dao\Entities\FiltersEntity;
+use App\Dao\Entities\Core\FiltersEntity;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use Illuminate\Database\Eloquent\Model;

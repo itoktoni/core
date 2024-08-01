@@ -87,7 +87,9 @@ class Query
             $menu = $menu->where('menu_code', $action)->first();
         }
 
-        return $menu;
+        return json_decode(json_encode($menu), true);
+
+        // return $menu;
     }
 
     public static function filter()

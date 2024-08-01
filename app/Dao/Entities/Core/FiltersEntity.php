@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dao\Entities;
+namespace App\Dao\Entities\Core;
 
 trait FiltersEntity
 {

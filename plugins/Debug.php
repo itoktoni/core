@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\System\Plugins;
+namespace Plugins;
 
 /**
  * Copyright 2010-2013 Craig Campbell

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\System\Plugins;
+namespace Plugins;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Lang as FacadesLang;

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Plugins\Alert;
 use Plugins\Core;
 use Plugins\Query;
+use Coderello\SharedData\Facades\SharedData;
 
 class AccessMiddleware
 {
@@ -94,7 +95,6 @@ class AccessMiddleware
     {
         $nav = session()->get('navigation');
         $url = url()->current();
-
         $data = isset($menu['menu_action']) ? $menu : [
             'menu_code' => "home",
             'menu_controller' => "App\Http\Controllers\Core\HomeController",
@@ -126,7 +126,7 @@ class AccessMiddleware
         $action_full_controller = false;
         $action_route = $action['name'] ?? false;
 
-        $menu = (array) Query::getmenu($action_route) ?? [];
+        $menu = Query::getmenu($action_route) ?? [];
         $group = $this->getGroup();
         $permision = Query::permision();
 
@@ -156,7 +156,8 @@ class AccessMiddleware
                 'timer' => env('APP_TIMER_ALERT', 5000),
             ]);
 
-            share($data);
+            SharedData::put($data);
+
         } catch (\Throwable $th) {}
 
         return $next($request);
