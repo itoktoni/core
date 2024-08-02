@@ -27,6 +27,7 @@ class HomeController extends Controller
      */
     public function index(Dashboard $chart)
     {
+        ds(true);
         if(auth()->check() && auth()->user()->active == false){
             return redirect()->route('login');
         }
