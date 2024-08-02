@@ -15,6 +15,10 @@ Route::get('/', function () {
 
 })->name('one');
 
+Route::get('domain', function(){
+    return 'main domain';
+});
+
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
 Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')->middleware(['access'])->name('delete_url');
