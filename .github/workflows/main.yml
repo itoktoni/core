@@ -1,0 +1,31 @@
+name: CICD
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+            cd ${{ secrets.SSH_PATH }}/release
+            git clone git@github.com:itoktoni/cicd.git ${{ secrets.SSH_PATH }}/release/${{ github.sha }}
+
+            cd ${{ secrets.SSH_PATH }}/release/${{ github.sha }}
+            chmod +x ${{ secrets.SSH_PATH }}/release/${{ github.sha }}/deploy.sh
+            bash ${{ secrets.SSH_PATH }}/release/${{ github.sha }}/deploy.sh
+
+            cd ${{ secrets.SSH_PATH }}/
+            rm current
+            ln -s ${{ secrets.SSH_PATH }}/release/${{ github.sha }} current
