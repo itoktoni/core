@@ -22,5 +22,6 @@ class WebhookController extends Controller
     public function deploy(Request $request)
     {
         Log::info(json_encode($request->all()));
+        Log::info(json_encode($request->header()));
     }
 }
