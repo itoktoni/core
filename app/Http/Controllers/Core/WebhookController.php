@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Plugins\Notes;
 use Plugins\Response;
+use Symfony\Component\Process\Process;
 
 class WebhookController extends Controller
 {
@@ -23,5 +24,17 @@ class WebhookController extends Controller
     {
         Log::info(json_encode($request->all()));
         Log::info(json_encode($request->header()));
+
+        $githubPayload = $request->getContent();
+        $githubHash = $request->header('X-Hub-Signature');
+        $localToken = 'dEJ537BScul2VDkbsoiaSo3mGx9c74qsYzM36lJv3FE7wGYx';
+        $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
+        if (hash_equals($githubHash, $localHash)) {
+             $root_path = base_path();
+             $process = new Process('cd ' . $root_path . '; git pull origin tenancy');
+             $process->run(function ($type, $buffer) {
+                 echo $buffer;
+             });
+        }
     }
 }
