@@ -29,15 +29,7 @@ class Deploy extends Command
     public function handle()
     {
         $root_path = base_path();
-
-        $process = new Process(['cd', $root_path, '&&', 'git', 'pull']);
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        $this->info($process->getOutput());
-
+        $process = shell_exec("cd {$root_path} && git pull");
+        $this->info($process);
     }
 }
