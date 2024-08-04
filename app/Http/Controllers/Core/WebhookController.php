@@ -21,7 +21,6 @@ class WebhookController extends Controller
 {
     public function deploy(Request $request)
     {
-        Log::info($request->all());
-        exec("git pull origin master");
+        Log::info(json_encode($request->all()));
     }
 }
