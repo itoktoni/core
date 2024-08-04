@@ -15,6 +15,7 @@ class Dashboard
 
     public function build()
     {
+        dump('test');
         return $this->chart->barChart()
     ->setTitle('San Francisco vs Boston.')
     ->setSubtitle('Wins during season 2021.')
