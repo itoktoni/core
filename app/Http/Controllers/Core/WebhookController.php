@@ -22,8 +22,6 @@ class WebhookController extends Controller
 {
     public function deploy(Request $request)
     {
-
-
         $githubPayload = $request->getContent();
         $githubHash = $request->header('X-Hub-Signature');
         $localToken = 'dEJ537BScul2VDkbsoiaSo3mGx9c74qsYzM36lJv3FE7wGYx';
