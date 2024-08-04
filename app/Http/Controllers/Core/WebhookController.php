@@ -22,16 +22,19 @@ class WebhookController extends Controller
 {
     public function deploy(Request $request)
     {
-        Log::info(json_encode($request->all()));
-        Log::info(json_encode($request->header()));
+
 
         $githubPayload = $request->getContent();
         $githubHash = $request->header('X-Hub-Signature');
         $localToken = 'dEJ537BScul2VDkbsoiaSo3mGx9c74qsYzM36lJv3FE7wGYx';
         $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
         if (hash_equals($githubHash, $localHash)) {
+            Log::info(true);
              $root_path = base_path();
              shell_exec('cd ' . $root_path . ' && git pull origin tenancy');
+        }
+        else{
+            Log::info(false);
         }
     }
 }
