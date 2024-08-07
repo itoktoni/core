@@ -2,7 +2,17 @@
 
 namespace App\Models;
 
+use App\Dao\Entities\Core\DefaultEntity;
+use App\Dao\Entities\Core\SystemGroupEntity;
+use App\Dao\Repositories\Core\CrudRepository;
+use App\Dao\Traits\ActiveTrait;
+use App\Dao\Traits\DataTableTrait;
+use App\Dao\Traits\OptionTrait;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
+use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
+use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
+
 
 /**
  * Class Category
@@ -14,12 +24,14 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
+
 class Category extends Model
 {
-    protected $table = 'category';
-    protected $perPage = 20;
-    protected $primaryKey = 'category_id';
+    use Sortable, CrudRepository, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemGroupEntity, ActiveTrait, OptionTrait;
 
+    protected $perPage = 20;
+    protected $table = 'category';
+    protected $primaryKey = 'category_id';
 
     /**
      * The attributes that are mass assignable.

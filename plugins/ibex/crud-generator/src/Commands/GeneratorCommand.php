@@ -50,7 +50,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     private ?array $tableColumns = null;
 
-    protected string $modelNamespace = 'App\Models';
+    protected string $modelNamespace = 'App\Dao\Models';
 
     protected string $controllerNamespace = 'App\Http\Controllers';
 
@@ -60,7 +60,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     protected string $livewireNamespace = 'App\Livewire';
 
-    protected string $requestNamespace = 'App\Http\Requests';
+    protected string $requestNamespace = 'App\Facades\Model';
 
     protected string $layout = 'layouts.app';
 
@@ -221,7 +221,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
      */
     protected function _getRequestPath($name): string
     {
-        return app_path($this->_getNamespacePath($this->requestNamespace)."{$name}Request.php");
+        return app_path($this->_getNamespacePath($this->requestNamespace)."{$name}Model.php");
     }
 
     /**
@@ -284,6 +284,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         return [
             '{{layout}}' => $this->layout,
             '{{modelName}}' => $this->name,
+            '{{tableName}}' => Str::snake($this->name),
             '{{modelTitle}}' => Str::title(Str::snake($this->name, ' ')),
             '{{modelTitlePlural}}' => Str::title(Str::snake(Str::plural($this->name), ' ')),
             '{{modelNamespace}}' => $this->modelNamespace,
@@ -400,10 +401,10 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
                 'livewire' => 'php artisan breeze:install livewire',
                 'react' => 'php artisan breeze:install react',
                 'vue' => 'php artisan breeze:install vue',
-                //default => 'php artisan ui bootstrap --auth'
+                default => 'php artisan ui bootstrap --auth'
             };
 
-            $this->runCommands([$uiCommand]);
+            //$this->runCommands([$uiCommand]);
         }
     }
 

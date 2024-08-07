@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class {{modelName}}Model extends Facade
+class CategoryModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

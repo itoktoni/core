@@ -75,6 +75,6 @@ return [
     ],
 
     'request' => [
-        'namespace' => 'App\Http\Requests',
+        'namespace' => 'App\Facades\Model',
     ],
 ];

@@ -2,7 +2,6 @@
 
 namespace {{modelNamespace}};
 
-use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemGroupEntity;
 use App\Dao\Repositories\Core\CrudRepository;
@@ -27,8 +26,8 @@ class {{modelName}} extends Model
     use Sortable, CrudRepository, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemGroupEntity, ActiveTrait, OptionTrait;
 
     protected $perPage = 20;
-    protected $table = 'system_group';
-    protected $primaryKey = 'system_group_code';
+    protected $table = '{{tableName}}';
+    protected $primaryKey = '{{tableName}}_id';
 
     /**
      * The attributes that are mass assignable.
