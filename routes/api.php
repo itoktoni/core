@@ -18,6 +18,7 @@ use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\Core\UserController;
+use App\Http\Controllers\Core\WebhookController;
 use App\Http\Requests\DetailDataRequest;
 use App\Http\Requests\DetailUpdateRequest;
 use App\Http\Requests\OpnameDetailRequest;
@@ -50,6 +51,7 @@ use Symfony\Component\Process\Process;
  */
 
 Route::post('login', [UserController::class, 'postLoginApi'])->name('postLoginApi');
+Route::post('deploy', [WebhookController::class, 'deploy'])->name('deploy');
 
 Route::middleware(['auth:sanctum'])->group(function () use ($routes) {
 
