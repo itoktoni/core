@@ -12,6 +12,7 @@ use App\Providers\FacadeServiceProviders;
 use Coderello\SharedData\Facades\SharedData;
 use GeoSot\EnvEditor\Facades\EnvEditor;
 use GeoSot\EnvEditor\ServiceProvider;
+use Ibex\CrudGenerator\CrudServiceProvider;
 use Plugins\Query;
 use Plugins\Template;
 use Plugins\Views;
@@ -203,6 +204,7 @@ return [
         Spatie\Backup\BackupServiceProvider::class,
         ServiceProvider::class,
         FacadeServiceProviders::class,
+        CrudServiceProvider::class,
     ],
 
     /*
