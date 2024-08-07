@@ -20,7 +20,7 @@
         <a href="">Register now!</a>
         <a href="">Reset password</a>
     </div>
-    <button class="btn btn-primary btn-block">Log In</button>
+    <button class="btn btn-primary btn-block">Sign In</button>
 </form>
 <!-- ./ form -->
 
