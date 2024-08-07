@@ -2,12 +2,11 @@
 
 namespace App\Dao\Repositories\Core;
 
-use App\Dao\Interfaces\CrudInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Plugins\Notes;
 
-class MasterRepository implements CrudInterface
+class MasterRepository
 {
     public $model;
     public static $paginate = true;

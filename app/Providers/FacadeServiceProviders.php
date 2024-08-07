@@ -10,14 +10,7 @@ use App\Dao\Models\Core\SystemLink;
 use App\Dao\Models\Core\SystemMenu;
 use App\Dao\Models\Core\SystemPermision;
 use App\Dao\Models\Core\SystemRole;
-use App\Dao\Repositories\Core\CategoryRepository;
-use App\Dao\Repositories\Core\GroupsRepository;
-use App\Dao\Repositories\Core\LinkRepository;
-use App\Dao\Repositories\Core\MenuRepository;
-use App\Dao\Repositories\Core\PermisionRepository;
-use App\Dao\Repositories\Core\RolesRepository;
-use App\Dao\Repositories\Core\UserRepository;
-use Illuminate\Contracts\Foundation\Application;
+use App\Dao\Models\Core\Team;
 use Illuminate\Support\ServiceProvider;
 
 class FacadeServiceProviders extends ServiceProvider
@@ -37,7 +30,7 @@ class FacadeServiceProviders extends ServiceProvider
         $this->app->bind('PermisionModel', SystemPermision::class);
         $this->app->bind('FilterModel', Filters::class);
 
-        $this->app->bind('CategoryModel', Category::class);
+        $this->app->bind('TeamModel', Team::class);
     }
 
     /**

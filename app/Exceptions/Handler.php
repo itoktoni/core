@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
@@ -12,6 +11,10 @@ use Plugins\Notes;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 use GuzzleHttp\Client;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Routing\Router;
 
 class Handler extends ExceptionHandler
 {
@@ -142,11 +145,27 @@ class Handler extends ExceptionHandler
             return Notes::error($e->getMessage(), 'Error '.$e->getCode());
         }
 
-        if ($this->isHttpException($e)) {
-            return response()->view('errors.custom', ['exception' => $e]);
-            return $this->renderHttpException($e);
-        } else {
-            return parent::render($request, $e);
+        $e = $this->mapException($e);
+
+        if (method_exists($e, 'render') && $response = $e->render($request)) {
+            return Router::toResponse($request, $response);
         }
+
+        if ($e instanceof Responsable) {
+            return $e->toResponse($request);
+        }
+
+        $e = $this->prepareException($e);
+
+        if ($response = $this->renderViaCallbacks($request, $e)) {
+            return $response;
+        }
+
+        return match (true) {
+            $e instanceof HttpResponseException => $e->getResponse(),
+            $e instanceof AuthenticationException => $this->unauthenticated($request, $e),
+            $e instanceof ValidationException => $this->convertValidationExceptionToResponse($e, $request),
+            default => $this->renderExceptionResponse($request, $e),
+        };
     }
 }

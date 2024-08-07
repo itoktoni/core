@@ -16,7 +16,7 @@
 
 <div>
     <div>
-        <span class="error-page-item font-weight-bold">{{ $exception->getStatusCode() }}</span>
+        <span class="error-page-item font-weight-bold">400</span>
     </div>
     <h4 class="mb-0 text-muted font-weight-normal">{{ $exception->getMessage() ?? 'Upps! Page Error!' }}</h4>
     <a href="{{ url('/') }}" class="btn btn-primary">Go Home</a>
