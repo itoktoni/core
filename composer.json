@@ -31,7 +31,7 @@
         "opcodesio/log-viewer": "^3.1",
         "sabre/dav": "^4.6",
         "spatie/laravel-backup": "^8.2",
-        "spatie/simple-excel": "^3.2",
+        "spatie/simple-excel": "^3.6",
         "touhidurabir/laravel-model-sanitize": "^1.1",
         "wildside/userstamps": "^2.2",
         "wnx/laravel-backup-restore": "^1.0"
@@ -51,7 +51,10 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "platform-check": false
+        "platform-check": false,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {

@@ -40,21 +40,31 @@ trait DataTableTrait
     public function queryFilter($query){
         $search = request()->get('search');
         $value = request()->get('filter') ? request()->get('filter') : $this->fieldSearching();
-        if($search){
 
-            if($this->fieldStatus() && isset($this->fieldStatus()[$value])) {
+        if($search)
+        {
+            if($this->fieldStatus() && isset($this->fieldStatus()[$value]))
+            {
                 $type = new \ReflectionClass($this->fieldStatus()[$value]);
                 $instance =  $type->newInstanceWithoutConstructor();
                 $convert = Str::of($search)->camel()->ucfirst();
                 $id = $instance->fromKey($convert) ?? false;
-                if($id){
+                if($id)
+                {
                     $query = $query->where($value, $id->value);
                 }
             }
-            else{
+            else
+            {
                 $query = $query->where($value, 'like', "%{$search}%");
             }
 
+            foreach(request()->except(['filter', 'search']) as $key => $val)
+            {
+                if(!empty($val)){
+                    $query = $query->where($key, $val);
+                }
+            }
         }
 
         return $query;
