@@ -9,6 +9,8 @@ use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
+use App\Facades\Model\MenuModel;
+use App\Facades\Model\RoleModel;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
@@ -71,11 +73,11 @@ class SystemGroup extends Model
 
     public function has_menu()
     {
-        return $this->belongsToMany(SystemMenu::class, 'system_group_connection_menu', 'system_group_code', 'system_menu_code');
+        return $this->belongsToMany(MenuModel::getModel(), 'system_group_connection_menu', 'system_group_code', 'system_menu_code');
     }
 
     public function has_role()
     {
-        return $this->belongsToMany(SystemRole::class, 'system_group_connection_role', 'system_group_code', 'system_role_code');
+        return $this->belongsToMany(RoleModel::getModel(), 'system_group_connection_role', 'system_group_code', 'system_role_code');
     }
 }

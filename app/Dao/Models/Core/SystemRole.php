@@ -9,6 +9,7 @@ use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
+use App\Facades\Model\GroupModel;
 use App\Facades\Model\RoleModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Console\Presets\Bootstrap;
@@ -72,7 +73,7 @@ class SystemRole extends Model
 
     public function has_group()
     {
-        return $this->belongsToMany(SystemGroup::class, 'system_group_connection_role', 'system_role_code', 'system_group_code');
+        return $this->belongsToMany(GroupModel::getModel(), 'system_group_connection_role', 'system_role_code', 'system_group_code');
     }
 
     public static function boot()

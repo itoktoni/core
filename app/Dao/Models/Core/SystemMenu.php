@@ -11,6 +11,7 @@ use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
+use App\Facades\Model\LinkModel;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
@@ -78,7 +79,7 @@ class SystemMenu extends Model
 
     public function has_link()
     {
-        return $this->belongsToMany(SystemLink::class, 'system_menu_connection_link', 'system_menu_code', 'system_link_code');
+        return $this->belongsToMany(LinkModel::getModel(), 'system_menu_connection_link', 'system_menu_code', 'system_link_code');
     }
 
     public static function boot()

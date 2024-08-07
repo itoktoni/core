@@ -64,9 +64,9 @@ class ModelGenerator
     /**
      * @return \Illuminate\Database\Eloquent\Relations\\'.ucfirst($relation['name']).'
      */
-    public function '.$relation['relation_name'].'()
+    public function has_'.$relation['relation_name'].'()
     {
-        return $this->'.$relation['name'].'(\\'.$this->modelNamespace.'\\'.$relation['class'].'::class, \''.$relation['foreign_key'].'\', \''.$relation['owner_key'].'\');
+        return $this->'.$relation['name'].'(\\App\\Facades\\Model\\'.$relation['class'].'Model::getModel(), \''.$relation['foreign_key'].'\', \''.$relation['owner_key'].'\');
     }
     ';
     }

@@ -11,7 +11,6 @@ use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\TeamModel;
 use App\Facades\Model\UserModel;
-use App\Http\Requests\Core\GeneralRequest;
 use Illuminate\Database\Eloquent\Model;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Kyslik\ColumnSortable\Sortable;
