@@ -400,7 +400,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
                 'livewire' => 'php artisan breeze:install livewire',
                 'react' => 'php artisan breeze:install react',
                 'vue' => 'php artisan breeze:install vue',
-                default => 'php artisan ui bootstrap --auth'
+                //default => 'php artisan ui bootstrap --auth'
             };
 
             $this->runCommands([$uiCommand]);
