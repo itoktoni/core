@@ -269,15 +269,21 @@ class CrudGenerator extends GeneratorCommand
         }
 
         $replace = array_merge($this->buildReplacements(), [
-            '{{tableHeader}}' => $tableHead,
-            '{{tableBody}}' => $tableBody,
-            '{{viewRows}}' => $viewRows,
+            //'{{tableHeader}}' => $tableHead,
+            //'{{tableBody}}' => $tableBody,
+            //'{{viewRows}}' => $viewRows,
             '{{form}}' => $form,
         ]);
 
         $this->buildLayout();
 
-        foreach (['index', 'create', 'edit', 'form', 'show'] as $view) {
+        foreach ([
+            'form'
+            // , 'create'
+            // , 'edit'
+            // , 'table'
+            // , 'show'
+            ] as $view) {
             $viewTemplate = str_replace(
                 array_keys($replace), array_values($replace), $this->getStub("views/{$this->options['stack']}/$view")
             );

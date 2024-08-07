@@ -43,7 +43,7 @@ return [
     'layout' => 'layouts.app',
 
     'model' => [
-        'namespace' => 'App\Models',
+        'namespace' => 'App\Dao\Models',
 
         /*
          * Do not make these columns $fillable in Model or views

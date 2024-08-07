@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Dao\Models\Core\Category;
 use App\Dao\Models\Core\Filters;
 use App\Dao\Models\Core\User;
 use App\Dao\Models\Core\SystemGroup;
@@ -11,6 +10,7 @@ use App\Dao\Models\Core\SystemMenu;
 use App\Dao\Models\Core\SystemPermision;
 use App\Dao\Models\Core\SystemRole;
 use App\Dao\Models\Core\Team;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 
 class FacadeServiceProviders extends ServiceProvider
@@ -31,6 +31,22 @@ class FacadeServiceProviders extends ServiceProvider
         $this->app->bind('FilterModel', Filters::class);
 
         $this->app->bind('TeamModel', Team::class);
+    }
+
+    public static function getControllerFile(){
+
+        $path = app_path('Facades/Model');
+        $fileNames = [];
+        $files = File::allFiles($path);
+
+        foreach($files as $file) {
+            if(!in_array($file->getFilenameWithoutExtension(), ['ForgotPasswordController', 'LoginController', 'RegisterController', 'ResetPasswordController', 'VerificationController'])){
+                $code = $file->getFilenameWithoutExtension();
+                $fileNames[$code] = '\\App\\Dao\\Models\\'.str_replace('Model', '', $code).'::class';
+            }
+        }
+
+        return $fileNames;
     }
 
     /**

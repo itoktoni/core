@@ -268,7 +268,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         $name = Str::kebab($this->name);
         $path = match ($this->options['stack']) {
             'livewire' => "/views/livewire/$name/$view.blade.php",
-            default => "/views/$name/$view.blade.php"
+            default => "/views/pages/$name/$view.blade.php"
         };
 
         return $this->makeDirectory(resource_path($path));
