@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Core;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\Dashboard;
+use App\Facades\Model\UserModel;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller

@@ -11,6 +11,7 @@ use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
+use Illuminate\Database\Eloquent\BroadcastsEvents;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,10 +19,11 @@ use Kirschbaum\PowerJoins\PowerJoins;
 use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
+use MBarlow\Megaphone\HasMegaphone;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
+    use  HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
 
     protected $table = 'users';
     protected $primaryKey = 'id';

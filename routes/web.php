@@ -1,6 +1,11 @@
 <?php
 
 use App\Dao\Enums\Core\MenuType;
+use App\Dao\Enums\Core\NotificationType;
+use App\Dao\Models\Core\User;
+use App\Events\SendBell;
+use App\Events\SendBroadcast;
+use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\HomeController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
@@ -8,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 use Plugins\Query;
 
 Route::get('console', [HomeController::class, 'console'])->name('console');
+Route::get('test', function () {
+    //event(new SendBroadcast('send lagi', 'error'));
+
+    $user = UserModel::find(101);
+    $notification = new \MBarlow\Megaphone\Types\Important(
+        'Expected Downtime!', // Notification Title
+        'We are expecting some downtime today at around 15:00 UTC for some planned maintenance.', // Notification Body
+        'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.
+        'Read More...' // Optional: Link Text. The text that will be shown on the link button.
+    );
+
+    sendNotification($notification, NotificationType::Error, 101);
+
+});
 
 Route::get('/', function () {
 

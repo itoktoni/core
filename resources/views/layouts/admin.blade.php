@@ -6,6 +6,7 @@
     @yield('head')
 
     <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('vendor/megaphone/css/megaphone.css') }}">
     @yield('css')
     @livewireStyles
 </head>
@@ -37,9 +38,13 @@
     </div>
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
+    @vite(['resources/js/vite.js'])
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('footer')
     @livewireScripts
+
+    <x-livewire-alert::scripts />
 </body>
 
 </html>

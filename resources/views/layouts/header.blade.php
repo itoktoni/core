@@ -31,11 +31,7 @@
 				 </a>
  			</li>
 
-			 {{-- <li class="nav-item navigation-toggler mobile-toggler notification" style="position: absolute;top:18px;right:0px">
-				<a href="#" class="nav-link" title="Show navigation">
-					<i class="bi bi-bell"></i>
-				</a>
-			</li> --}}
+			<livewire:megaphone></livewire:megaphone>
 
  		</ul>
 

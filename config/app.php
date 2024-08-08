@@ -17,6 +17,7 @@ use Plugins\Query;
 use Plugins\Template;
 use Plugins\Views;
 use Illuminate\Support\Str;
+use MBarlow\Megaphone\MegaphoneServiceProvider;
 
 return [
 
@@ -191,7 +192,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
@@ -205,6 +206,7 @@ return [
         ServiceProvider::class,
         FacadeServiceProviders::class,
         CrudServiceProvider::class,
+        MegaphoneServiceProvider::class,
     ],
 
     /*

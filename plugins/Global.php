@@ -1,9 +1,16 @@
 <?php
 
+use App\Dao\Enums\Core\NotificationType;
+use App\Dao\Models\Core\User;
+use App\Events\SendBroadcast;
+use App\Events\SendMessage;
+use App\Facades\Model\UserModel;
 use Carbon\Carbon;
 use Coderello\SharedData\Facades\SharedData;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Str;
+use MBarlow\Megaphone\Types\BaseAnnouncement;
+use MBarlow\Megaphone\Types\General;
 
 define('ACTION_CREATE', 'getCreate');
 define('ACTION_UPDATE', 'getUpdate');
@@ -227,4 +234,52 @@ function getLowerClass($class)
 function setString($value)
 {
     return '"'.$value.'"';
+}
+
+/*
+megaphone
+*/
+
+if (! function_exists('getMegaphoneTypes')) {
+    function getMegaphoneTypes(): array
+    {
+        return array_merge(
+            (array) config('megaphone.types', []),
+            array_keys((array) config('megaphone.customTypes', []))
+        );
+    }
+}
+
+if (! function_exists('getMegaphoneAdminTypes')) {
+    function getMegaphoneAdminTypes(): array
+    {
+        $adminList = config('megaphone.adminTypeList');
+
+        if (is_array($adminList)) {
+            return $adminList;
+        }
+
+        return getMegaphoneTypes();
+    }
+}
+
+if (! function_exists('sendNotification')) {
+    function sendNotification(BaseAnnouncement $data, $type = NotificationType::Info,  $user_id = 0)
+    {
+        if($data instanceof General)
+        {
+            foreach(UserModel::all() as $model)
+            {
+                $model->notify($data);
+            }
+
+            event(new SendBroadcast($data, $type));
+        }
+        else
+        {
+            $model = UserModel::find($user_id);
+            $model->notify($data);
+            event(new SendBroadcast($data, $type, $user_id));
+        }
+    }
 }
