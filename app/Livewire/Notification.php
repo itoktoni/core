@@ -17,6 +17,10 @@ class Notification extends Component
 
     public function getListeners()
     {
+        if(!env('BROADCAST_DRIVER')) {
+            return [];
+        }
+
         return [
             "echo-private:broadcast,SendBroadcast" => 'notification',
         ];

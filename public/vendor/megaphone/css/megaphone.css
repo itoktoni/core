@@ -32,6 +32,15 @@
   margin-right: -20px;
 }
 
+.megaphone p.leading-3{
+  margin-left: 15px;
+}
+
+.megaphone .aspect-square.rounded-full{
+  left: -10px;
+  top: -5px;
+}
+
 .megaphone .sr-only {
   position: absolute;
   width: 1px;
@@ -373,6 +382,14 @@
 }
 @media (min-width: 1536px) {
   .megaphone .\32xl\:w-4\/12 {
+    width: 33.333333%;
+    }
+
+
+}
+
+@media (min-width: 1200px) {
+  .megaphone .bg-gray-50.shadow-md{
     width: 33.333333%;
   }
 }

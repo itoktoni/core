@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Facades\Model\CategoryModel;
 use App\Facades\Model\UserModel;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -13,23 +12,26 @@ use Illuminate\Queue\SerializesModels;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class AppendMoreUsers implements ShouldQueue
+class JobExportUser implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(
         public $chunkIndex,
         public $chunkSize,
-        public $folder
+        public $fileName
     ) {
     }
 
     public function handle()
     {
-        if (!file_exists(storage_path("app/users.csv")))
+        if (!file_exists($this->fileName))
         {
-            SimpleExcelWriter::create(storage_path("app/users.csv"))
-                   ->addHeader(['id', 'name', 'email']);
+            SimpleExcelWriter::create($this->fileName, delimiter: env('CSV_DELIMITER'))->addHeader([
+                'id',
+                'name',
+                'email',
+            ]);
         }
         else
         {
@@ -46,11 +48,13 @@ class AppendMoreUsers implements ShouldQueue
                     ];
                 });
 
-            $file = storage_path("app/users.csv");
+            $file = $this->fileName;
             $open = fopen($file, 'a+');
-            foreach ($users as $user) {
-                fputcsv($open, $user);
+            foreach ($users as $user)
+            {
+                fputcsv($open, $user, env('CSV_DELIMITER'));
             }
+
             fclose($open);
         }
 

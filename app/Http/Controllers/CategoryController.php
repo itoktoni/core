@@ -12,11 +12,9 @@ use App\Http\Function\UpdateFunction;
 use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
 use App\Jobs\AppendMoreUsers;
-use App\Jobs\CreateUsersExportFile;
 use Illuminate\Bus\Batch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Throwable;
@@ -86,7 +84,7 @@ class CategoryController extends MasterController
 
     public function postCreate(Request $request, CreateService $service)
     {
-        //$this->test();
+        dd(true);
         ini_set('max_execution_time', 0);
         ini_set('max_input_time', 0);
 
@@ -103,7 +101,7 @@ class CategoryController extends MasterController
             }
         }
 
-        Bus::batch($batches)
+        $bus = Bus::batch($batches)
             ->name('Export Users')
             ->then(function (Batch $batch) use ($folder) {
                 //$path = "exports/{$folder}/users.csv";
@@ -120,6 +118,8 @@ class CategoryController extends MasterController
                 //Storage::disk('local')->deleteDirectory($folder);
             })
             ->dispatch();
+
+        dd($bus);
 
         return redirect()->back();
 

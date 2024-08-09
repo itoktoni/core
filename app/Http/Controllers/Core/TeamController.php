@@ -39,7 +39,7 @@ class TeamController extends MasterController
         $data = $this->get($code, ['has_lead']);
         $selected = $data->has_user->pluck('id') ?? [];
 
-        return moduleView(modulePathForm(core: self::$is_core), $this->share([
+        return moduleView(modulePathForm(path: self::$is_core), $this->share([
             'model' => $data,
             'selected' => $selected,
         ]));

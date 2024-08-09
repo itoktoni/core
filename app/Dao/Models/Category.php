@@ -33,7 +33,6 @@ class Category extends Model
     protected $perPage = 20;
     protected $table = 'history';
     protected $primaryKey = 'history_id';
-    protected $connection = 'backup';
 
     /**
      * The attributes that are mass assignable.

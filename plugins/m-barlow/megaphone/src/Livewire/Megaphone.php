@@ -22,7 +22,6 @@ class Megaphone extends Component
         'announcements' => 'required',
     ];
 
-    #[On('echo-private:broadcast,SendBroadcast')]
     public function mount(Request $request)
     {
         if (empty($this->notifiableId) && $request->user() !== null) {
@@ -49,6 +48,18 @@ class Megaphone extends Component
         $announcements = $notifiable->announcements()->get();
         $this->unread = $announcements->whereNull('read_at');
         $this->announcements = $announcements->whereNotNull('read_at');
+    }
+
+    public function getListeners()
+    {
+        if(!env('BROADCAST_DRIVER', false)) {
+            return [];
+        }
+
+        return [
+            "echo-private:broadcast,SendBroadcast" => 'mount',
+        ];
+
     }
 
     public function render()

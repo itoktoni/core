@@ -51,29 +51,4 @@ class ReportController extends Controller
         $this->beforeCreate();
         return view(Template::form(SharedData::get('template')))->with($this->share());
     }
-
-    public function getUpdate($code)
-    {
-        $this->beforeForm();
-        $this->beforeUpdate($code);
-        return view(Template::form(SharedData::get('template')))->with($this->share([
-            'model' => $this->get($code),
-        ]));
-    }
-
-    public function get($code = null, $relation = null)
-    {
-        $relation = $relation ?? request()->get('relation');
-        if ($relation) {
-            return self::$service->get($this->model, $code, $relation);
-        }
-        return self::$service->get($this->model, $code);
-    }
-
-    public function postDelete(DeleteRequest $request, DeleteService $service)
-    {
-        $code = $request->get('code');
-        $data = $service->delete($this->model, $code);
-        return Response::redirectBack($data);
-    }
 }

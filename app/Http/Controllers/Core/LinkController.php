@@ -63,7 +63,7 @@ class LinkController extends MasterController
         $data = $this->get($code);
         $action = Helper::getFunction($data->field_controller, $data->field_primary) ?? [];
 
-        return moduleView(modulePathForm(core: self::$is_core), $this->share([
+        return moduleView(modulePathForm(path: self::$is_core), $this->share([
             'model' => $data,
             'action' => $action
         ]));

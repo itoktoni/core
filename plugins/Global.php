@@ -67,15 +67,22 @@ function modulePathTable($name = null, $core = false)
 function modulePathPrint($name = null)
 {
     if ($name) {
-        return 'pages.' . moduleCode() . '.'.$name;
+        return 'report.' . moduleCode() . '.'.$name;
     }
 
-    return 'pages.master.print';
+    return 'report.master.print';
 }
 
-function modulePathForm($name = null, $template = null, $core = false)
+function modulePathForm($name = null, $template = null, $path = false)
 {
-    $path = $core ? 'core.' : 'pages.';
+    if (is_string($path))
+    {
+        $path = $path.'.';
+    }
+    else
+    {
+        $path = $path ? 'core.' : 'pages.';
+    }
 
     if ($template && $name) {
         return $path . $template . '.' . $name;

@@ -74,4 +74,9 @@ class UserController extends MasterController
 
         return Notes::token($user->toArray());
     }
+
+    public function getExportJob()
+    {
+        return moduleView(modulePathForm(path: true), $this->share());
+    }
 }

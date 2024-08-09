@@ -38,8 +38,11 @@
     </div>
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
-    @vite(['resources/js/vite.js'])
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(env('BROADCAST_DRIVER'))
+        @vite(['resources/js/vite.js'])
+    @endif
 
     @stack('footer')
     @livewireScripts

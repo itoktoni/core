@@ -78,14 +78,14 @@ class MasterController extends Controller
     {
         $this->beforeForm();
         $this->beforeCreate();
-        return moduleView(modulePathForm(core: self::$is_core), $this->share());
+        return moduleView(modulePathForm(path: self::$is_core), $this->share());
     }
 
     public function getUpdate($code)
     {
         $this->beforeForm();
         $this->beforeUpdate($code);
-        return moduleView(modulePathForm(core: self::$is_core), $this->share([
+        return moduleView(modulePathForm(path: self::$is_core), $this->share([
             'model' => $this->get($code),
         ]));
     }

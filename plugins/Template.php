@@ -53,9 +53,9 @@ class Template
 
     public static function print($template = false, $name = false) {
         if ($name) {
-            return 'pages.' . $template . '.' . $name;
+            return 'report.' . $template . '.' . $name;
         }
-        return 'pages.' . $template . '.print';
+        return 'report.' . $template . '.data';
     }
 
     public static function form($template = false, $name = false)
