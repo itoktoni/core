@@ -12,10 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->integer('team_user_id', true)->primary();
+            $table->integer('team_user_id', true);
             $table->string('team_name');
             $table->string('team_domain')->nullable();
-            $table->foreignId('team_user_id');
             $table->timestamps();
         });
     }
