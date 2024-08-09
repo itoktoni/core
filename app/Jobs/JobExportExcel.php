@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Exports\ExportExcel;
-use App\Exports\LinenDetail;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -284,7 +284,15 @@ if (! function_exists('sendNotification')) {
         }
         else
         {
-            $model = UserModel::find($user_id);
+            if (!empty($user_id)) {
+
+                $model = UserModel::find($user_id);
+            }
+            else
+            {
+                $model = auth()->user();
+            }
+
             $model->notify($data);
             event(new SendBroadcast($data, $type, $user_id));
         }
