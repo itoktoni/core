@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Dao\Models\Core\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,12 +24,12 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'itok',
-            'username' => 'itoktoni',
+            'name' => $this->faker->name(),
+            'username' => $this->faker->userName(),
             'role' => 'admin',
             'level' => 100,
             'active' => 1,
-            'email' => 'itok.toni@gmail.com',
+            'email' => $this->faker->email(),
             'email_verified_at' => now(),
             'password' => Hash::make('admin'), // password
             'remember_token' => Str::random(10),

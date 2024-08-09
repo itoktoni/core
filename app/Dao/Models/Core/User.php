@@ -11,7 +11,9 @@ use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\BroadcastsEvents;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,7 +25,7 @@ use MBarlow\Megaphone\HasMegaphone;
 
 class User extends Authenticatable
 {
-    use  HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
+    use HasFactory, HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -72,6 +74,11 @@ class User extends Authenticatable
     public function fieldSearching()
     {
         return $this->field_name();
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 
     public function fieldDatatable(): array
