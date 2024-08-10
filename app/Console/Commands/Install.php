@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Dao\Enums\Core\NotificationStatus;
+use App\Dao\Models\Core\User;
 use App\Dao\Models\Notification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -41,10 +42,8 @@ class Install extends Command
      */
     public function handle()
     {
-        try {
-            DB::unprepared(file_get_contents('database/schema/mysql-schema.dump'));
-        } catch (\Throwable $th) {
-            //throw $th;
+        foreach(range(1, 100) as $item){
+            User::factory(100)->create();
         }
     }
 }
