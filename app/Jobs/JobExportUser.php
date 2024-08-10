@@ -27,7 +27,7 @@ class JobExportUser implements ShouldQueue
     {
         if (!file_exists($this->fileName))
         {
-            SimpleExcelWriter::create($this->fileName, delimiter: env('CSV_DELIMITER'))->addHeader([
+            SimpleExcelWriter::create($this->fileName, delimiter: env('CSV_DELIMITER',  ','))->addHeader([
                 'id',
                 'name',
                 'email',
@@ -52,7 +52,7 @@ class JobExportUser implements ShouldQueue
             $open = fopen($file, 'a+');
             foreach ($users as $user)
             {
-                fputcsv($open, $user, env('CSV_DELIMITER'));
+                fputcsv($open, $user, env('CSV_DELIMITER', ','));
             }
 
             fclose($open);

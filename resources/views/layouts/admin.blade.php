@@ -38,6 +38,7 @@
     </div>
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@imacrayon/alpine-ajax@0.8.0/dist/cdn.min.js"></script>
 
     @if(env('BROADCAST_DRIVER'))
@@ -45,8 +46,6 @@
     @endif
 
     @stack('footer')
-    @livewireScripts
-
 
     <x-livewire-alert::scripts />
 </body>

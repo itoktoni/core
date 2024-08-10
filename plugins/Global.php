@@ -290,7 +290,7 @@ if (! function_exists('sendNotification')) {
             }
             else
             {
-                $model = auth()->user();
+                $model = UserModel::find(auth()->user()->id);
             }
 
             $model->notify($data);

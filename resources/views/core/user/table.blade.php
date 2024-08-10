@@ -2,8 +2,13 @@
 
     <x-card class="table-container">
 
-        <x-form method="GET" action="{{ moduleRoute('getTable') }}">
+        <x-form method="GET" x-init x-target="table" role="search" aria-label="Contacts" autocomplete="off" action="{{ moduleRoute('getTable') }}">
             <x-filter toggle="Filter" :fields="$fields" />
+
+            <input type="search" name="search" aria-label="Search Term" placeholder="Type to filter contacts..." @input.debounce="$el.form.requestSubmit()" @search="$el.form.requestSubmit()">
+
+            <button x-show="false">Search</button>
+
         </x-form>
 
         <x-form method="POST" action="{{ moduleRoute('getTable') }}">
@@ -30,7 +35,7 @@
                                 @endforeach
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                             @forelse($data as $table)
                                 <tr>
                                     <td>
