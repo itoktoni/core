@@ -44,7 +44,7 @@
 
     @stack('footer')
 
-    @livewireScript
+    @livewireScriptConfig
 
     <x-livewire-alert::scripts />
 </body>

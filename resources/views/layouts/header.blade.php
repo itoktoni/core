@@ -37,10 +37,12 @@
 
  	</div>
 
- 	<div class="">
+ 	<div style="margin-right: 50px;">
 
  		<ul class="navbar-nav">
-
+			<li class="nav-item ">
+				@livewire('progress')
+			</li>
  		</ul>
  	</div>
 

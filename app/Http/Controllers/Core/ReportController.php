@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Core;
 
 use App\Dao\Enums\Core\BooleanType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Core\DeleteRequest;
-use App\Http\Services\Master\DeleteService;
 use Coderello\SharedData\Facades\SharedData;
-use Plugins\Response;
 use Plugins\Template;
 
 class ReportController extends Controller
 {
     public static $service;
-    public static $model;
+    public $model;
     public static $template;
     public static $share = [];
 
@@ -26,23 +23,15 @@ class ReportController extends Controller
         $status = BooleanType::getOptions();
         $view = [
             'status' => $status,
+            'model' => false,
         ];
-        return self::$share = array_merge($view, $data, self::$share);
+        return self::$share = array_merge($view, self::$share, $data);
     }
 
     public function getData()
     {
         $query = $this->model->dataRepository();
         return $query;
-    }
-
-    public function getTable()
-    {
-        $data = $this->getData();
-        return view(Template::table(SharedData::get('template')))->with($this->share([
-            'data' => $data,
-            'fields' => $this->model->model->getShowField(),
-        ]));
     }
 
     public function getCreate()

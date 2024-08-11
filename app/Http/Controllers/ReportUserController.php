@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\ReportController;
+use App\Jobs\JobExportCsvUser;
 use Illuminate\Http\Request;
+use Plugins\Response;
 
 class ReportUserController extends ReportController
 {
@@ -12,21 +14,27 @@ class ReportUserController extends ReportController
 
     public function __construct(UserModel $model)
     {
-        self::$model = self::$model ?? $model;
+        $this->model = $model::getModel();
     }
 
-    private function getQuery($request)
+    public function getData()
     {
-        return self::$model::getModel()->get();
+        $query = $this->model->dataRepository();
+        return $query;
     }
 
     public function getPrint(Request $request)
     {
         set_time_limit(0);
 
-        $this->data = $this->getQuery($request);
+        $this->data = $this->getData($request);
 
-        exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 50);
+        $batch = exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 10);
+        if ($request->queue == 'batch')
+        {
+            $url = moduleRoute('getCreate', array_merge(['batch' => $batch->id], $request->all()));
+            return redirect()->to($url);
+        }
 
         return moduleView(modulePathPrint(), $this->share([
             'data' => $this->data,
