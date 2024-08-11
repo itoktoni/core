@@ -26,6 +26,8 @@ class ReportUserController extends ReportController
 
         $this->data = $this->getQuery($request);
 
+        exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 50);
+
         return moduleView(modulePathPrint(), $this->share([
             'data' => $this->data,
         ]));

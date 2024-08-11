@@ -7,10 +7,14 @@ use App\Events\SendMessage;
 use App\Facades\Model\UserModel;
 use Carbon\Carbon;
 use Coderello\SharedData\Facades\SharedData;
+use Illuminate\Bus\Batch;
 use Illuminate\Support\Carbon as SupportCarbon;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MBarlow\Megaphone\Types\BaseAnnouncement;
 use MBarlow\Megaphone\Types\General;
+use Laravie\SerializesQuery\Eloquent;
 
 define('ACTION_CREATE', 'getCreate');
 define('ACTION_UPDATE', 'getUpdate');
@@ -296,5 +300,53 @@ if (! function_exists('sendNotification')) {
             $model->notify($data);
             event(new SendBroadcast($data, $type, $user_id));
         }
+    }
+}
+
+if (! function_exists('exportCsv')) {
+    function exportCsv($name, $query, $jobClass, $delimiter = ",", $chunkSize = 1000)
+    {
+        $total = $query->count();
+        $numberOfChunks = ceil($total / $chunkSize);
+
+        $name = 'public/files/export/'.Str::snake($name).'-'.now()->toDateString() . '-' . str_replace(':', '-', now()->toTimeString()).'.csv';
+        $batches = [];
+
+        for ($i = 1; $i <= $numberOfChunks; $i++) {
+            $batches[] = new $jobClass($name, Eloquent::serialize($query), $i, $chunkSize, $delimiter);
+        }
+
+        $bus = Bus::batch($batches)
+            ->name('Export Users')
+            ->then(function (Batch $batch) use ($name) {
+
+                Storage::disk('public')->put($name, file_get_contents($name));
+
+                $notification = new \MBarlow\Megaphone\Types\General(
+                    'Download File Success',
+                    'File Ready to download',
+                    asset('files/' . $name),
+                    'Download'
+                );
+
+                sendNotification($notification);
+
+            })
+            ->catch(function (Batch $batch, Throwable $e) {
+
+                $notification = new \MBarlow\Megaphone\Types\General(
+                    'Download File Error',
+                    $e->getMessage(),
+                );
+
+                sendNotification($notification);
+
+            })
+            ->finally(function (Batch $batch) use ($name) {
+                Storage::disk('local')->delete($name);
+            })
+            ->dispatch();
+
+        return $bus;
     }
 }

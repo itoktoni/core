@@ -31,13 +31,13 @@ class Category extends Model
     use Sortable, CrudRepository, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemGroupEntity, ActiveTrait, OptionTrait;
 
     protected $perPage = 20;
-    protected $table = 'history';
-    protected $primaryKey = 'history_id';
+    protected $table = 'category';
+    protected $primaryKey = 'category_id';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['history_id', 'history_rfid', 'history_waktu'];
+    protected $fillable = ['category_id', 'category_name'];
 }

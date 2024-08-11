@@ -40,13 +40,11 @@
     <script src="{{ url('assets/js/app.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @if(env('BROADCAST_DRIVER'))
-        @vite(['resources/js/vite.js'])
-    @endif
+    @vite(['resources/js/vite.js'])
 
     @stack('footer')
 
-    @livewireScriptConfig
+    @livewireScript
 
     <x-livewire-alert::scripts />
 </body>

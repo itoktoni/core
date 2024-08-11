@@ -2,40 +2,63 @@
 
 namespace App\Jobs;
 
-use App\Facades\Model\UserModel;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Rap2hpoutre\FastExcel\FastExcel;
+use Laravie\SerializesQuery\Eloquent;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
-class JobExportUser implements ShouldQueue
+class JobExportCsvUser implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(
+        public $fileName,
+        public $query,
         public $chunkIndex,
         public $chunkSize,
-        public $fileName
+        public $delimiter
     ) {
+    }
+
+    private function getHeader() {
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'email' => 'Email',
+        ];
     }
 
     public function handle()
     {
-        if (!file_exists($this->fileName))
+        $query = Eloquent::unserialize($this->query)
+            ->select(array_keys($this->getHeader()));
+
+        if ($this->chunkIndex == 1)
         {
-            SimpleExcelWriter::create($this->fileName, delimiter: env('CSV_DELIMITER',  ','))->addHeader([
-                'id',
-                'name',
-                'email',
-            ]);
-        }
-        else
-        {
-            $users = UserModel::query()
+            $data = $query->get();
+
+            if (!empty($data)) {
+                $excel = SimpleExcelWriter::create($this->fileName, delimiter:$this->delimiter);
+                $excel->addHeader(array_values($this->getHeader()));
+
+                foreach ($data as $item) {
+                    $excel->addRow($item->toArray());
+                }
+            }
+
+        } else {
+
+            if (!file_exists($this->fileName)) {
+
+                SimpleExcelWriter::create($this->fileName, delimiter:$this->delimiter)
+                    ->addHeader(array_values($this->getHeader()));
+            }
+
+            $users = $query
                 ->orderBy('id', 'asc')
                 ->skip(($this->chunkIndex - 1) * $this->chunkSize)
                 ->take($this->chunkSize)
@@ -50,6 +73,7 @@ class JobExportUser implements ShouldQueue
 
             $file = $this->fileName;
             $open = fopen($file, 'a+');
+
             foreach ($users as $user)
             {
                 fputcsv($open, $user, env('CSV_DELIMITER', ','));
