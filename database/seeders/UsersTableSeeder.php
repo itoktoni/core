@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Dao\Models\Core\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'phone' => NULL,
             'email' => 'admin@gmail.com',
             'email_verified_at' => '2022-12-13 18:51:38',
-            'password' => '$2y$10$xrnGLo0jr6Og5QDW4QwHj.RZn4iQU3/zjtz2V3iAOL3H.S3HJekgu',
+            'password' => Hash::make('admin'), // password
             'role' => 'admin',
             'level' => 100,
             'active' => 1,

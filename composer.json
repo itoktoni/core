@@ -27,6 +27,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.0",
+        "laravelcm/laravel-subscriptions": "^1.3",
         "laravie/serialize-queries": "^3.0",
         "league/flysystem-webdav": "^3.21",
         "livewire/livewire": "^3.5",
