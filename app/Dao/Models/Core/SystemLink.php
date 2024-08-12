@@ -3,23 +3,14 @@
 namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
-use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemLinkEntity;
 use App\Dao\Enums\Core\MenuType;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
-use App\Dao\Traits\OptionTrait;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Plugins\Core;
 use Illuminate\Support\Str;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
-class SystemLink extends Model
+class SystemLink extends SystemModel
 {
-    use Sortable, FilterQueryString, CrudRepository, Sanitizable, DataTableTrait, DefaultEntity, SystemLinkEntity, ActiveTrait, OptionTrait;
+    use SystemLinkEntity;
 
     protected $table = 'system_link';
     protected $primaryKey = 'system_link_code';
@@ -48,20 +39,9 @@ class SystemLink extends Model
         'system_link_sort' => 'integer'
     ];
 
-    protected $filters = [
-        'filter',
-    ];
-
-    public $timestamps = false;
-    public $incrementing = false;
-
-    public function field_name()
+    public static function field_name()
     {
         return 'system_link_name';
-    }
-
-    public function fieldSearching(){
-        return $this->field_name();
     }
 
     public function fieldDatatable(): array

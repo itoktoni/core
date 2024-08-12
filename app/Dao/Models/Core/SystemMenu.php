@@ -3,25 +3,15 @@
 namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
-use App\Dao\Entities\Core\RoutesEntity;
 use App\Dao\Entities\Core\SystemMenuEntity;
-use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\MenuType;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
-use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\LinkModel;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Plugins\Core;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Illuminate\Support\Str;
 
-class SystemMenu extends Model
+class SystemMenu extends SystemModel
 {
-    use Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, SystemMenuEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use SystemMenuEntity;
 
     protected $table = 'system_menu';
     protected $primaryKey = 'system_menu_code';
@@ -53,17 +43,6 @@ class SystemMenu extends Model
         'system_menu_enable' => 'integer',
         'system_menu_can_delete' => 'integer'
     ];
-
-    protected $filters = [
-        'filter',
-    ];
-
-    public $timestamps = false;
-    public $incrementing = false;
-
-    public function fieldSearching(){
-        return $this->field_name();
-    }
 
     public function fieldDatatable(): array
     {

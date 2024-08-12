@@ -10,9 +10,6 @@
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="{{ url('assets/media/image/favicon.png') }}" />
 
-	<!-- Plugin styles -->
-	<link rel="stylesheet" href="{{ url('vendors/bundle.css') }}" type="text/css">
-
 	<!-- App styles -->
 	<link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
 </head>

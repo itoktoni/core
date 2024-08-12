@@ -3,22 +3,14 @@
 namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
-use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemPermisionEntity;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
 use App\Facades\Model\PermisionModel;
 use App\Facades\Model\UserModel;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Plugins\Core;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
-class SystemPermision extends Model
+class SystemPermision extends SystemModel
 {
-    use Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, SystemPermisionEntity, ActiveTrait, ActiveTrait;
+    use SystemPermisionEntity;
 
     protected $table = 'system_permision';
     protected $primaryKey = 'system_permision_id';
@@ -39,17 +31,6 @@ class SystemPermision extends Model
         'system_permision_controller',
         'system_permision_module',
     ];
-
-    protected $filters = [
-        'filter',
-    ];
-
-    public $timestamps = false;
-    public $incrementing = false;
-
-    public function fieldSearching(){
-        return $this->field_code();
-    }
 
     public function fieldDatatable(): array
     {

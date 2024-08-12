@@ -3,24 +3,14 @@
 namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
-use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemRoleEntity;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
-use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\GroupModel;
 use App\Facades\Model\RoleModel;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Console\Presets\Bootstrap;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use Illuminate\Support\Str;
 
-class SystemRole extends Model
+class SystemRole extends SystemModel
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, CrudRepository, DefaultEntity, SystemRoleEntity, ActiveTrait, ActiveTrait, OptionTrait;
+    use SystemRoleEntity;
 
     protected $table = 'system_role';
     protected $primaryKey = 'system_role_code';
@@ -44,21 +34,9 @@ class SystemRole extends Model
         'system_role_code' => 'string',
     ];
 
-    protected $filters = [
-        'filter',
-    ];
-
-    public $timestamps = false;
-    public $incrementing = false;
-
     public static function field_name()
     {
         return 'system_role_name';
-    }
-
-    public function fieldSearching()
-    {
-        return $this->field_name();
     }
 
     public function fieldDatatable(): array

@@ -66,7 +66,7 @@ class Query
 
         $menu = [];
         try {
-            $menu = DB::table(MenuModel::getTable())
+            $menu = DB::table(MenuModel::getTableName())
             ->select([
                 DB::raw('COALESCE(system_link.system_link_code, system_menu.system_menu_code) as menu_code'),
                 DB::raw('COALESCE(system_link.system_link_controller, system_menu.system_menu_controller) as menu_controller'),
@@ -75,7 +75,7 @@ class Query
                 DB::raw('COALESCE(system_link.system_link_url, system_menu.system_menu_url) as menu_url'),
             ])
             ->leftJoin('system_menu_connection_link', 'system_menu.system_menu_code', '=', 'system_menu_connection_link.system_menu_code')
-            ->leftJoin(LinkModel::getTable(), 'system_menu_connection_link.system_link_code', '=', 'system_link.system_link_code')
+            ->leftJoin(LinkModel::getTableName(), 'system_menu_connection_link.system_link_code', '=', 'system_link.system_link_code')
             ->get();
 
             Cache::put('menu', $menu);

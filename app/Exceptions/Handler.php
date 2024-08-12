@@ -2,68 +2,44 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
-use Illuminate\Validation\ValidationException;
-use Plugins\Notes;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
-use GuzzleHttp\Client;
+use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Log;
+use Throwable;
+use Illuminate\Validation\ValidationException;
+use GuzzleHttp\Client;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Arr;
+use Plugins\Notes;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
     /**
-     * A list of the exception types that are not reported.
+     * The list of the inputs that are never flashed to the session on validation exceptions.
      *
-     * @var array
-     */
-    protected $dontReport = [
-        'Symfony\Component\HttpKernel\Exception\HttpException'
-    ];
-
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
+     * @var array<int, string>
      */
     protected $dontFlash = [
+        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Throwable
-     */
-    // public function render($request, Throwable $exception)
-    // {
-    //     if(isset($exception->getStatusCode()) && in_array($exception->getStatusCode(), [402, 404])){
-    //         return response()->view('errors.custom', ['exception' => $exception]);
-    //     }
-    // }
-
-    private function checkError(Throwable $e){
+    private function checkError(Throwable $e)
+    {
         if ($e->getMessage() == 'The route vendors/bundle.css could not be found.') {
             return true;
         }
@@ -91,21 +67,19 @@ class Handler extends ExceptionHandler
         return false;
     }
 
-    private function buildMessage($message){
-        $data = ['json' => [
-            "chat_id" => env("TELEGRAM_ID"), //<== ganti dengan id_message yang kita dapat tadi
-            "text" => $message
-            ]
-        ];
-
-        return $data;
-    }
-
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
     public function render($request, Throwable $e)
     {
         Log::error($e->getMessage());
         if(!empty(env('BOT_TELEGRAM')) && !empty(env('TELEGRAM_ID'))){
-
             $client  = new Client();
             $url = "https://api.telegram.org/bot".env("BOT_TELEGRAM")."/sendMessage";//<== ganti jadi token yang kita tadi
 
@@ -123,6 +97,7 @@ class Handler extends ExceptionHandler
                 $client->request('GET', $url, $data);
             }
         }
+
 
         if(request()->hasHeader('authorization')){
 
@@ -151,10 +126,6 @@ class Handler extends ExceptionHandler
             return Router::toResponse($request, $response);
         }
 
-        if ($e instanceof Responsable) {
-            return $e->toResponse($request);
-        }
-
         $e = $this->prepareException($e);
 
         if ($response = $this->renderViaCallbacks($request, $e)) {
@@ -168,4 +139,15 @@ class Handler extends ExceptionHandler
             default => $this->renderExceptionResponse($request, $e),
         };
     }
+
+    private function buildMessage($message){
+        $data = ['json' => [
+            "chat_id" => env("TELEGRAM_ID"), //<== ganti dengan id_message yang kita dapat tadi
+            "text" => $message
+            ]
+        ];
+
+        return $data;
+    }
+
 }

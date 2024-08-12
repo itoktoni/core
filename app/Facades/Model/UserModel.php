@@ -2,13 +2,11 @@
 
 namespace App\Facades\Model;
 
-use Illuminate\Support\Facades\Facade;
-
 /**
  * @see \App\Dao\Models\Core\User
  */
 
-class UserModel extends Facade
+class UserModel extends \App\Dao\Models\Core\User
 {
     protected static function getFacadeAccessor()
     {

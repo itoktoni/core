@@ -6,7 +6,7 @@ trait DefaultEntity
 {
     public static function getModel()
     {
-        return with(new static);
+        return new static();
     }
 
     public static function getTableName()
@@ -34,13 +34,13 @@ trait DefaultEntity
         return $this->{$this->field_primary()};
     }
 
-    public function field_name()
+    public static function field_name()
     {
         return self::field_key();
     }
 
     public function getFieldNameAttribute()
     {
-        return $this->{$this->field_name()};
+        return $this->{self::field_name()};
     }
 }

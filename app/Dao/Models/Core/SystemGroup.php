@@ -3,22 +3,13 @@
 namespace App\Dao\Models\Core;
 
 use App\Dao\Builder\DataBuilder;
-use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\SystemGroupEntity;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
-use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\MenuModel;
 use App\Facades\Model\RoleModel;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
-class SystemGroup extends Model
+class SystemGroup extends SystemModel
 {
-    use Sortable, CrudRepository, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemGroupEntity, ActiveTrait, OptionTrait;
+    use SystemGroupEntity;
 
     protected $table = 'system_group';
     protected $primaryKey = 'system_group_code';
@@ -44,19 +35,9 @@ class SystemGroup extends Model
         'system_group_sort' => 'integer'
     ];
 
-    protected $filters = [
-        'filter',
-    ];
-
-    public $timestamps = false;
-    public $incrementing = false;
-
-    public function field_name(){
+    public static function field_name()
+    {
         return 'system_group_name';
-    }
-
-    public function fieldSearching(){
-        return $this->field_name();
     }
 
     public function fieldDatatable(): array

@@ -2,7 +2,6 @@
     <x-form :model="$model">
         <x-card>
             <x-action form="form" />
-
             <div class="row">
                 @bind($model)
                     <x-form-input col="3" name="system_group_code" />
