@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'enabled' => env('PULSE_ENABLED', true),
+    'enabled' => env('PULSE_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,6 +120,7 @@ return [
 
     'middleware' => [
         'web',
+        'auth',
         Authorize::class,
     ],
 

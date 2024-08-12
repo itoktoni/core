@@ -31,6 +31,8 @@
 				 </a>
  			</li>
 
+			@livewire('progress')
+
 			<livewire:megaphone></livewire:megaphone>
 
  		</ul>
@@ -41,7 +43,6 @@
 
  		<ul class="navbar-nav">
 			<li class="nav-item ">
-				@livewire('progress')
 			</li>
  		</ul>
  	</div>
