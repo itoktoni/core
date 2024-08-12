@@ -36,4 +36,14 @@ trait TeamEntity
     {
         return $this->{$this->field_domain()};
     }
+
+    public static function field_name()
+    {
+        return 'team_name';
+    }
+
+    public function getFieldNameAttribute()
+    {
+        return $this->{$this->field_name()};
+    }
 }

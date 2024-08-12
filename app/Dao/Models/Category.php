@@ -2,17 +2,7 @@
 
 namespace App\Dao\Models;
 
-use App\Dao\Entities\Core\DefaultEntity;
-use App\Dao\Entities\Core\SystemGroupEntity;
-use App\Dao\Repositories\Core\CrudRepository;
-use App\Dao\Traits\ActiveTrait;
-use App\Dao\Traits\DataTableTrait;
-use App\Dao\Traits\OptionTrait;
-use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
-use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
-
+use App\Dao\Models\Core\SystemModel;
 
 /**
  * Class Category
@@ -26,10 +16,8 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 
-class Category extends Model
+class Category extends SystemModel
 {
-    use Sortable, CrudRepository, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, SystemGroupEntity, ActiveTrait, OptionTrait;
-
     protected $perPage = 20;
     protected $table = 'category';
     protected $primaryKey = 'category_id';
@@ -40,4 +28,14 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = ['category_id', 'category_name'];
+
+    public static function field_name()
+    {
+        return 'category_name';
+    }
+
+    public function getFieldNameAttribute()
+    {
+        return $this->{$this->field_name()};
+    }
 }
