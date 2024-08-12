@@ -32,6 +32,7 @@
         "league/flysystem-webdav": "^3.21",
         "livewire/livewire": "^3.5",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
+        "milwad/laravel-attributes": "^1.1",
         "opcodesio/log-viewer": "^3.1",
         "phpoffice/phpspreadsheet": "^2.2",
         "sabre/dav": "^4.6",
