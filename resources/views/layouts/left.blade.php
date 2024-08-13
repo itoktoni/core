@@ -1,161 +1,454 @@
-<div class="navigation-menu-tab">
-	<div class="flex-grow-1">
-		<ul>
-			<li>
-				<a class="icon {{ request()->segment(1) == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
-					<i class="bi bi-bar-chart-line"></i>
-					<h5 class="text-center text-white">
-						Dashboard
-					</h5>
-				</a>
-			</li>
-			@if($groups = module('groups'))
-			@foreach($groups as $group_data)
-			<li>
-				<a class="icon {{ request()->segment(2) == $group_data->field_primary ? 'active' : '' }}" href="{{ $group_data->field_url ?? '#' }}"
-					data-nav-target="#{{ $group_data->field_primary }}">
-					<i class="bi bi-{{ $group_data->field_icon }}"></i>
-					<h5 class="text-center text-white">
-						{{ __($group_data->field_name) }}
-					</h5>
-				</a>
-			</li>
-			@endforeach
-			@endif
+    <!-- ========== Left Sidebar Start ========== -->
+    <div
+        class="vertical-menu rtl:right-0 fixed ltr:left-0 bottom-0 top-16 h-screen border-r bg-slate-50 border-gray-50 print:hidden dark:bg-zinc-800 dark:border-neutral-700 z-10">
 
-			@auth
-			@if(auth()->user()->level == LevelType::Developer)
-			<li>
-				<a class="icon" href="{{ url('log-viewer') }}">
-					<i class="bi bi-clock-history"></i>
-					<h5 class="text-center text-white">
-						Audit Log
-					</h5>
-				</a>
-			</li>
-			<li>
-				<a class="icon" href="{{ url('env-editor') }}">
-					<i class="bi bi-toggles"></i>
-					<h5 class="text-center text-white">
-						Env Editor
-					</h5>
-				</a>
-			</li>
-			@endif
-			@endauth
+        <div data-simplebar class="h-full">
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+                <!-- Left Menu Start -->
 
-			<li>
-				@auth
-				<a class="icon" href="{{ route('signout') }}">
-					<i class="bi bi-person-x"></i>
-					<h5 class="text-center text-white">
-						Logout
-					</h5>
-				</a>
-				@else
-				<a class="icon" href="{{ route('login') }}">
-					<i class="bi bi-log-in"></i>
-					<h5 class="text-center text-white">
-						Login
-					</h5>
-				</a>
-				@endauth
-			</li>
+                @if($groups = SharedData::get('groups'))
 
-		</ul>
-	</div>
-</div>
+                <ul class="metismenu" id="side-menu">
 
-@if(Template::greatherAdmin())
-<!-- begin::navigation menu -->
-<div class="navigation-menu-body">
+                    <li>
+                        <a href="index.html"
+                            class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="home"></i>
+                            <span data-key="t-dashboard"> Dashboard</span>
+                        </a>
+                    </li>
 
-	<!-- begin::navigation-logo -->
-	<div class="navigation-header">
-		<div id="navigation-logo">
-			<a href="{{ url('/') }}">
-				<img class="logo"
-					src="{{ env('APP_LOGO') ? url('storage/'.env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
-					alt="logo">
-			</a>
-		</div>
-	</div>
-	<!-- end::navigation-logo -->
+                    @foreach($groups as $group_data)
 
-	<div class="navigation-menu-group">
+                    <li class="menu-heading px-4 py-3.5 text-xs font-medium text-gray-500 cursor-default"
+                        data-key="t-menu">
 
-		@if($groups = SharedData::get('groups'))
-		@foreach($groups as $group_data)
-		<!-- should be open home || in request()->segment(1) == 'home' ? 'open' -->
-		<div class="{{ request()->segment(2) == $group_data->field_primary || request()->segment(1) == 'home' ? 'open' : '' }}" id="{{ $group_data->field_primary }}">
-			<ul>
-				@if($menus = $group_data->has_menu)
-				@foreach($menus as $menu)
-				@if($menu->field_type == MenuType::Internal)
-				<li>
-					<a href="{{ $menu->field_url }}">
-						<span>{{ $menu->field_name }}</span>
-					</a>
-				</li>
-				@elseif($menu->field_type == MenuType::External)
-				<li>
-					<a target="_blank" href="{{ $menu->field_url }}">
-						<span>{{ $menu->field_name }}</span>
-					</a>
-				</li>
-				@elseif($menu->field_type == MenuType::Devider)
-				<li>
-					<hr>
-				</li>
-				@elseif($menu->field_type == MenuType::Menu)
-				@php
-				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_url;
-				@endphp
-				<li>
-					<a class="link {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
-						<span>{{ $menu->field_name }}</span>
-					</a>
-				</li>
-				@elseif($menu->field_type == MenuType::Group)
-				@php
-				$open = request()->segment(2) == $group_data->field_primary && request()->segment(3) == $menu->field_primary;
-				@endphp
-				<li class="{{ $open ? 'open' : '' }}">
-					<a href="#">
-						{{ $menu->field_name }}
-						<i class="sub-menu-arrow chevron-menu"></i>
-					</a>
-					@if($links = $menu->has_link)
-					<ul>
-						@foreach($links as $link)
-						@php
-						$active = $open && request()->segment(4) == $link->field_url;
-						@endphp
-						@if($link->field_type == MenuType::External || $link->field_type == MenuType::Internal)
-						<li>
-							<a class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
-								{{ $link->field_name }}
-							</a>
-						</li>
-						@else
-						<li>
-							<a class="link {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ route($link->field_action) }}" @endif href="{{ route($link->field_action) }}">
-								{{ $link->field_name }}
-							</a>
-						</li>
-						@endif
-						@endforeach
-					</ul>
-					@endif
-				</li>
-				@endif
-				@endforeach
-				@endif
-			</ul>
-		</div>
-		@endforeach
-		@endif
+                        {{ __($group_data->field_name) }}
 
-	</div>
-</div>
-@endif
+                    </li>
+
+                    @if($menus = $group_data->has_menu)
+				    @foreach($menus as $menu)
+
+                    <li>
+                        <a href="{{ $menu->field_action ? route($menu->field_action) : '' }}"
+                            class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="home"></i>
+                            <span data-key="t-dashboard"> {{ $menu->field_name }}</span>
+                        </a>
+                    </li>
+
+                    @endforeach
+                    @endif
+
+                    @endforeach
+
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="users"></i>
+                            <span data-key="t-auth">Authentication</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="login.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Login</a>
+                            </li>
+                            <li>
+                                <a href="register.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Register</a>
+                            </li>
+                            <li>
+                                <a href="recoverpw.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Recover
+                                    Password</a>
+                            </li>
+                            <li>
+                                <a href="lock-screen.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Lock
+                                    Screen</a>
+                            </li>
+                            <li>
+                                <a href="logout.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Log
+                                    Out</a>
+                            </li>
+                            <li>
+                                <a href="confirm-mail.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Confirm
+                                    Mail</a>
+                            </li>
+                            <li>
+                                <a href="email-verification.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Email
+                                    Verification</a>
+                            </li>
+                            <li>
+                                <a href="two-step-verification.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Two
+                                    Step Verification</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="briefcase"></i><span data-key="t-pages">Pages</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="starter.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Starter
+                                    Page</a>
+                            </li>
+                            <li>
+                                <a href="maintenance.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Maintenance</a>
+                            </li>
+                            <li>
+                                <a href="coming-soon.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Coming
+                                    Soon</a>
+                            </li>
+                            <li>
+                                <a href="timeline.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Timeline</a>
+                            </li>
+                            <li>
+                                <a href="faqs.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="pricing.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Pricing</a>
+                            </li>
+                            <li>
+                                <a href="404.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Error
+                                    404</a>
+                            </li>
+                            <li>
+                                <a href="500.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Error
+                                    500</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-heading px-4 py-3 text-xs font-medium text-gray-500 cursor-default"
+                        data-key="t-elements">Elements</li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="briefcase"></i>
+                            <span data-key="t-compo">Components</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="alerts.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Alerts</a>
+                            </li>
+                            <li>
+                                <a href="buttons.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Buttons</a>
+                            </li>
+                            <li>
+                                <a href="cards.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Cards</a>
+                            </li>
+                            <li>
+                                <a href="dropdown.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Dropdown</a>
+                            </li>
+                            <li>
+                                <a href="flexbox&grid.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Flexbox
+                                    & Grid</a>
+                            </li>
+                            <li>
+                                <a href="sizing.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Sizing</a>
+                            </li>
+                            <li>
+                                <a href="avatars.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Avatar</a>
+                            </li>
+                            <li>
+                                <a href="modals.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Modals</a>
+                            </li>
+                            <li>
+                                <a href="progress.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Progress</a>
+                            </li>
+                            <li>
+                                <a href="tabs&accordions.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Tabs
+                                    & Accordions</a>
+                            </li>
+                            <li>
+                                <a href="typography.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Typography</a>
+                            </li>
+                            <li>
+                                <a href="toasts.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Toasts</a>
+                            </li>
+                            <li>
+                                <a href="general.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">General</a>
+                            </li>
+                            <li>
+                                <a href="colors.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Colors</a>
+                            </li>
+                            <li>
+                                <a href="utilities.html"
+                                    class="pl-14 pr-4 py-2 block text-[13.5px] font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Utilities</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="gift"></i>
+                            <span data-key="t-extend">Extended</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="extended-lightbox.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Lightbox</a>
+                            </li>
+                            <li>
+                                <a href="extended-rangeslider.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Rangeslider</a>
+                            </li>
+                            <li>
+                                <a href="extended-sweet-alert.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">SweetAlert
+                                    2</a>
+                            </li>
+                            <li>
+                                <a href="extended-rating.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Rating</a>
+                            </li>
+                            <li>
+                                <a href="extended-notifications.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <span
+                                class="badge bg-red-50 text-danger ltr:float-right rtl:float-left z-50 px-1.5 rounded-full text-11 text-red-500"
+                                data-toggle="collapse">7</span>
+                            <i data-feather="box"></i>
+                            <span data-key="t-forms">Forms</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="form-elements.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Basic
+                                    Elements</a>
+                            </li>
+                            <li>
+                                <a href="form-validation.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Rangeslider</a>
+                            </li>
+                            <li>
+                                <a href="form-advanced.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">SweetAlert
+                                    2</a>
+                            </li>
+                            <li>
+                                <a href="form-editors.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Editors</a>
+                            </li>
+                            <li>
+                                <a href="file-uploads.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">File
+                                    Upload</a>
+                            </li>
+                            <li>
+                                <a href="form-wizard.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Wizard</a>
+                            </li>
+                            <li>
+                                <a href="form-mask.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Mask</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="sliders"></i>
+                            <span data-key="t-charts">Tables</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="tables-basic.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Basic
+                                    Elements</a>
+                            </li>
+                            <li>
+                                <a href="tables-datatable.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">DataTables</a>
+                            </li>
+                            <li>
+                                <a href="tables-responsive.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Responsive</a>
+                            </li>
+                            <li>
+                                <a href="tables-editable.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Editable
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="pie-chart"></i>
+                            <span data-key="t-charts">Charts</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="charts-apex.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Apexcharts</a>
+                            </li>
+                            <li>
+                                <a href="charts-echart.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Echarts</a>
+                            </li>
+                            <li>
+                                <a href="charts-chartjs.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Chartjs</a>
+                            </li>
+                            <li>
+                                <a href="charts-knob.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Jquery
+                                    Knob</a>
+                            </li>
+                            <li>
+                                <a href="charts-sparkline.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Sparkline
+                                    Chart</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="cpu"></i>
+                            <span data-key="t-icons">Icons</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="icons-boxicons.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Boxicons</a>
+                            </li>
+                            <li>
+                                <a href="icons-materialdesign.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Material
+                                    Design</a>
+                            </li>
+                            <li>
+                                <a href="icons-dripicons.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Dripicons</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="map"></i>
+                            <span data-key="t-maps"> Maps</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="maps-google.html"
+                                    class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Google</a>
+                            </li>
+                            <li>
+                                <a href="maps-vector.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Vector</a>
+                            </li>
+                            <li>
+                                <a href="maps-leaflet.html"
+                                    class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Leaflet</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu__item w-full ">
+                        <a href="javascript: void(0);" aria-expanded="false"
+                            class="nav-menu pl-6 pr-4 py-3 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                            <i data-feather="share-2"></i>
+                            <span data-key="t-level">Multi Level</span>
+                        </a>
+                        <div>
+                            <ul>
+                                <li>
+                                    <a href="index.html"
+                                        class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Level
+                                        1.1</a>
+                                </li>
+                                <li>
+                                    <a href="#!" data-toggle="collapse" data-target=".Level1.2-menu"
+                                        class="nav-menu pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
+                                        <span data-key="t-level">Level 1.2</span>
+                                    </a>
+                                    <ul class="collapse Level1.2-menu">
+                                        <li>
+                                            <a href="#"
+                                                class="pl-14 pr-4 py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Level
+                                                2.1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="pl-14 pr-4  py-2 block text-sm font-medium text-gray-700 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Level
+                                                2.2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+                @endif
+
+                <div class="sidebar-alert text-center mx-5 my-12">
+                    <div class="card-body bg-primary rounded bg-violet-50/50 dark:bg-zinc-700/60">
+                        <img src="assets/images/giftbox.png" alt="" class="block mx-auto">
+                        <div class="mt-4">
+                            <h5 class="text-violet-500 mb-3 font-medium">Unlimited Access</h5>
+                            <p class="text-slate-600 text-13 dark:text-gray-50">Upgrade your plan from a Free trial, to
+                                select ‘Business Plan’.</p>
+                            <a href="#!" class="btn bg-violet-500 text-white border-transparent mt-6">Upgrade
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar -->
+        </div>
+    </div>
+    <!-- Left Sidebar End -->

@@ -1,52 +1,48 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
     @include('layouts.meta')
     @yield('head')
 
-    <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('vendor/megaphone/css/megaphone.css') }}">
+    <!-- alertifyjs Css -->
+    <link href="{{ url('assets/libs/alertifyjs/build/css/alertify.min.css') }}" rel="stylesheet" type="text/css') }}" />
+
+    <!-- alertifyjs default themes  Css -->
+    <link href="{{ url('assets/libs/alertifyjs/build/css/themes/default.min.css') }}" rel="stylesheet" type="text/css') }}" />
+
+    <link rel="stylesheet" href="{{ url('assets/css/icons.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/css/tailwind.css') }}" />
+
     @yield('css')
     @livewireStyles
+
 </head>
 
-<body class="fixed">
+<body data-mode="light" data-sidebar-size="lg">
 
     @include('layouts.header')
+    @include('layouts.right')
+    @include('layouts.left')
 
-    <div id="main">
+    <div class="main-content">
 
-        <div class="navigation">
-
-            @include('layouts.left')
-
-        </div>
-
-        <div class="main-content" id="content">
-            @yield('container')
-            @include('layouts.alert')
-        </div>
-
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" id="modal-body">
-                </div>
-            </div>
-        </div>
+        @yield('container')
 
     </div>
 
-    <script src="{{ url('assets/js/app.min.js') }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/libs/@popperjs/core/umd/popper.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/libs/metismenujs/metismenujs.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <!-- alertifyjs js -->
+    <script src="assets/libs/alertifyjs/build/alertify.min.js"></script>
 
-    @vite(['resources/js/vite.js'])
+    <!-- notification init -->
+    <!-- <script src="assets/js/pages/notification.init.js"></script> -->
 
-    @stack('footer')
-
-    @livewireScriptConfig
-
-    <x-livewire-alert::scripts />
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>
