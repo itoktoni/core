@@ -6,7 +6,7 @@
             <div
                 class="navbar-brand flex items-center justify-between shrink px-5 h-[70px] border-r bg-slate-50 border-r-gray-50 dark:border-zinc-700 dark:bg-zinc-800">
                 <a href="#" class="flex items-center font-bold text-lg  dark:text-white">
-                    <img src="assets/images/logo-sm.svg" alt="" class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
+                    <img src="{{ url('assets/images/logo-sm.svg') }}" alt="" class="ltr:mr-2 rtl:ml-2 inline-block mt-1 h-6" />
                     <span class="hidden xl:block align-middle">Minia</span>
                 </a>
             </div>
@@ -57,7 +57,7 @@
             <div class="dropdown relative language hidden sm:block">
                 <button class="btn border-0 py-0 dropdown-toggle px-4 h-[70px]" type="button" aria-expanded="false"
                     data-dropdown-toggle="navNotifications">
-                    <img src="assets/images/flags/us.jpg" alt="" class="h-4" id="header-lang-img">
+                    <img src="{{ url('assets/images/flags/us.jpg') }}" alt="" class="h-4" id="header-lang-img">
                 </button>
                 <div class="dropdown-menu absolute -left-24 z-50 hidden w-40 list-none rounded bg-white shadow dark:bg-zinc-800"
                     id="navNotifications">
@@ -65,25 +65,25 @@
                         <li>
                             <a href="#"
                                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50/50 dark:text-gray-200 dark:hover:bg-zinc-600/50 dark:hover:text-white"><img
-                                    src="assets/images/flags/us.jpg" alt="user-image" class="mr-1 inline-block h-3">
+                                    src="{{ url('assets/images/flags/us.jpg') }}" alt="user-image" class="mr-1 inline-block h-3">
                                 <span class="align-middle">English</span></a>
                         </li>
                         <li>
                             <a href="#"
                                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50/50 dark:text-gray-200 dark:hover:bg-zinc-600/50 dark:hover:text-white"><img
-                                    src="assets/images/flags/spain.jpg" alt="user-image" class="mr-1 inline-block h-3">
+                                    src="{{ url('assets/images/flags/spain.jpg') }}" alt="user-image" class="mr-1 inline-block h-3">
                                 <span class="align-middle">Spanish</span></a>
                         </li>
                         <li>
                             <a href="#"
                                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50/50 dark:text-gray-200 dark:hover:bg-zinc-600/50 dark:hover:text-white"><img
-                                    src="assets/images/flags/germany.jpg" alt="user-image"
+                                    src="{{ url('assets/images/flags/germany.jpg') }}" alt="user-image"
                                     class="mr-1 inline-block h-3"> <span class="align-middle">German</span></a>
                         </li>
                         <li>
                             <a href="#"
                                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-50/50 dark:text-gray-200 dark:hover:bg-zinc-600/50 dark:hover:text-white"><img
-                                    src="assets/images/flags/italy.jpg" alt="user-image" class="mr-1 inline-block h-3">
+                                    src="{{ url('assets/images/flags/italy.jpg') }}" alt="user-image" class="mr-1 inline-block h-3">
                                 <span class="align-middle">Italian</span></a>
                         </li>
                     </ul>
@@ -109,18 +109,18 @@
                             <div class="grid grid-cols-3">
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/github.png" class="mb-2 mx-auto h-6" alt="Github">
+                                    <img src="{{ url('assets/images/brands/github.png') }}" class="mb-2 mx-auto h-6" alt="Github">
                                     <span>GitHub</span>
                                 </a>
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/bitbucket.png" class="mb-2 mx-auto h-6"
+                                    <img src="{{ url('assets/images/brands/bitbucket.png') }}" class="mb-2 mx-auto h-6"
                                         alt="Github">
                                     <span>Bitbucket</span>
                                 </a>
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/dribbble.png" class="mb-2 mx-auto h-6"
+                                    <img src="{{ url('assets/images/brands/dribbble.png') }}" class="mb-2 mx-auto h-6"
                                         alt="Github">
                                     <span>Dribbble</span>
                                 </a>
@@ -128,19 +128,19 @@
                             <div class="grid grid-cols-3">
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/dropbox.png" class="mb-2 mx-auto h-6"
+                                    <img src="{{ url('assets/images/brands/dropbox.png') }}" class="mb-2 mx-auto h-6"
                                         alt="Github">
                                     <span>Dropbox</span>
                                 </a>
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/mail_chimp.png" class="mb-2 mx-auto h-6"
+                                    <img src="{{ url('assets/images/brands/mail_chimp.png') }}" class="mb-2 mx-auto h-6"
                                         alt="Github">
                                     <span>Mail Chimp</span>
                                 </a>
                                 <a class="dropdown-item hover:bg-gray-50/50 py-4 text-center dark:hover:bg-zinc-700/50 dark:hover:text-gray-50"
                                     href="#">
-                                    <img src="assets/images/brands/slack.png" class="mb-2 mx-auto h-6"
+                                    <img src="{{ url('assets/images/brands/slack.png') }}" class="mb-2 mx-auto h-6"
                                         alt="Github">
                                     <span>Slack</span>
                                 </a>
@@ -179,7 +179,7 @@
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="flex px-4 py-2 hover:bg-gray-50/50 dark:hover:bg-zinc-700/50">
                                             <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                <img src="assets/images/users/avatar-3.jpg"
+                                                <img src="{{ url('assets/images/users/avatar-3.jpg') }}"
                                                     class="rounded-full h-8 w-8" alt="user-pic">
                                             </div>
                                             <div class="flex-grow">
@@ -241,7 +241,7 @@
                                     <a href="#!" class="text-reset notification-item">
                                         <div class="flex px-4 py-2 hover:bg-gray-50/50 dark:hover:bg-zinc-700/50">
                                             <div class="flex-shrink-0 ltr:mr-3 rtl:ml-3">
-                                                <img src="assets/images/users/avatar-6.jpg"
+                                                <img src="{{ url('assets/images/users/avatar-6.jpg') }}"
                                                     class="rounded-full h-8 w-8" alt="user-pic">
                                             </div>
                                             <div class="flex-grow">
@@ -278,7 +278,7 @@
                         id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="true">
                         <img class="h-8 w-8 rounded-full ltr:xl:mr-2 rtl:xl:ml-2"
-                            src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                            src="{{ url('assets/images/users/avatar-1.jpg') }}" alt="Header Avatar">
                         <span class="fw-medium hidden xl:block">Shawn L.</span>
                         <i class="mdi mdi-chevron-down align-bottom hidden xl:block"></i>
                     </button>
