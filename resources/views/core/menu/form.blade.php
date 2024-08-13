@@ -2,7 +2,7 @@
     <x-form :model="$model">
         <x-card>
             <x-action form="form" />
-            <div class="row">
+
                 @bind($model)
                     <x-form-select col="6" class="search" name="system_menu_type" :options="$type" />
                     <x-form-input col="6" name="system_menu_name" />
@@ -16,7 +16,6 @@
                             :default="$selected" />
                     @endif
                 @endbind
-            </div>
 
         </x-card>
     </x-form>

@@ -2,7 +2,7 @@
     <x-form :model="$model">
         <x-card>
             <x-action form="form" />
-            <div class="row">
+
                 @bind($model)
                     <x-form-input col="3" name="system_group_code" />
                     <x-form-input col="3" name="system_group_sort" />
@@ -12,7 +12,6 @@
                     <x-form-select col="12" class="tag" multiple name="menu[]" :default="$selected ?? []"
                         :options="$menu" />
                 @endbind
-            </div>
 
         </x-card>
     </x-form>

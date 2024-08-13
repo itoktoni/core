@@ -2,58 +2,63 @@
 
     <x-card class="table-container">
 
-        <x-form method="GET" x-init="" x-target="table" role="search" aria-label="Contacts" autocomplete="off" action="{{ moduleRoute('getTable') }}">
-            <x-filter toggle="Filter" :fields="$fields" />
-        </x-form>
+        <div class="col-md-12">
 
-        <x-form method="POST" action="{{ moduleRoute('getTable') }}">
+            <x-form method="GET" x-init="" x-target="table" role="search" aria-label="Contacts"
+                autocomplete="off" action="{{ moduleRoute('getTable') }}">
+                <x-filter toggle="Filter" :fields="$fields" />
+            </x-form>
 
-            <x-action/>
+            <x-form method="POST" action="{{ moduleRoute('getTable') }}">
 
-            <div class="container-fluid">
-                <div class="table-responsive" id="table_data">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th width="9" class="center">
-                                    <input class="btn-check-d" type="checkbox">
-                                </th>
-                                <th class="text-center column-action">{{ __('Action') }}</th>
-                                @foreach($fields as $value)
-                                    <th {{ Template::extractColumn($value) }}>
-                                        @if($value->sort)
-                                            @sortablelink($value->code, __($value->name))
+                <x-action />
+
+                <div class="container-fluid">
+                    <div class="table-responsive" id="table_data">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="9" class="center">
+                                        <input class="btn-check-d" type="checkbox">
+                                    </th>
+                                    <th class="text-center column-action">{{ __('Action') }}</th>
+                                    @foreach ($fields as $value)
+                                        <th {{ Template::extractColumn($value) }}>
+                                            @if ($value->sort)
+                                                @sortablelink($value->code, __($value->name))
                                             @else
                                                 {{ __($value->name) }}
                                             @endif
-                                    </th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody id="table">
-                            @forelse($data as $table)
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="checkbox" name="code[]"
-                                            value="{{ $table->field_primary }}">
-                                    </td>
-                                    <td class="col-md-2 text-center column-action">
-                                        <x-crud :model="$table" />
-                                    </td>
-                                    <td>{{ $table->field_name }}</td>
-                                    <td>{{ $table->field_username }}</td>
-                                    <td>{{ $table->field_role_name }}</td>
-                                    <td>{{ $table->field_phone }}</td>
+                                        </th>
+                                    @endforeach
                                 </tr>
-                            @empty
-                            @endforelse
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="table">
+                                @forelse($data as $table)
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="checkbox" name="code[]"
+                                                value="{{ $table->field_primary }}">
+                                        </td>
+                                        <td class="col-md-2 text-center column-action">
+                                            <x-crud :model="$table" />
+                                        </td>
+                                        <td>{{ $table->field_name }}</td>
+                                        <td>{{ $table->field_username }}</td>
+                                        <td>{{ $table->field_role_name }}</td>
+                                        <td>{{ $table->field_phone }}</td>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <x-pagination :data="$data" />
                 </div>
-                <x-pagination :data="$data" />
-            </div>
 
-        </x-form>
+            </x-form>
+
+        </div>
 
     </x-card>
 

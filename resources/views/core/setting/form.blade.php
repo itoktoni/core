@@ -3,8 +3,6 @@
         <x-card>
             <x-action form="form" />
 
-            <div class="row">
-
                 @bind($model)
                     <x-form-input col="6" value="{{ env('APP_NAME') }}" label="Nama Perusahaan" name="name" />
                     <x-form-select col="2" name="debug_enable" :default="env('APP_DEBUG')" label="Debug Enable"
@@ -21,8 +19,6 @@
                             alt="">
                     </div>
                 @endbind
-
-            </div>
 
         </x-card>
 

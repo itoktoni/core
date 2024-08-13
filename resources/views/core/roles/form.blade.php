@@ -3,7 +3,6 @@
         <x-card>
             <x-action form="form" />
 
-            <div class="row">
                 @bind($model)
                     <x-form-input col="6" name="system_role_name" />
                     <x-form-input col="6" name="system_role_description" />
@@ -11,7 +10,6 @@
                     <x-form-select col="6" class="tag" multiple name="group[]" :default="$selected ?? []"
                         :options="$group" />
                 @endbind
-            </div>
 
         </x-card>
     </x-form>
