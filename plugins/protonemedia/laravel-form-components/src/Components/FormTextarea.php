@@ -62,7 +62,7 @@ class FormTextarea extends Component
             $this->name = "{$name}[{$language}]";
         }
 
-        $this->col = $this->col ? 'col-md-'.$this->col : 'col';
+        // $this->col = $this->col ? 'col-md-'.$this->col : 'col';
         $this->rows = $this->rows ? '3' : '';
 
         if(!is_bool($this->label)){

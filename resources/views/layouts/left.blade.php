@@ -435,18 +435,6 @@
 
                 @endif
 
-                <div class="sidebar-alert text-center mx-5 my-12">
-                    <div class="card-body bg-primary rounded bg-violet-50/50 dark:bg-zinc-700/60">
-                        <img src="assets/images/giftbox.png" alt="" class="block mx-auto">
-                        <div class="mt-4">
-                            <h5 class="text-violet-500 mb-3 font-medium">Unlimited Access</h5>
-                            <p class="text-slate-600 text-13 dark:text-gray-50">Upgrade your plan from a Free trial, to
-                                select ‘Business Plan’.</p>
-                            <a href="#!" class="btn bg-violet-500 text-white border-transparent mt-6">Upgrade
-                                Now</a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Sidebar -->
         </div>

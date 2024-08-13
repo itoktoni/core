@@ -2,22 +2,13 @@
 $class = 'form-control';
 @endphp
 
-<div class="@if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
-    <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
+<div class="col-span-{{ $col }}">
+    <div class="mb-4">
+        <label for="example-text-input" class="block font-medium text-gray-700 dark:text-gray-100 mb-2">
+            {{ $label }}
+        </label>
 
-    <div >
-        <input
-        name="{{ $name }}"
-        type="file"
-        {!! $attributes->merge(['class' => $class]) !!}
-        >
+        <input name="{{ $name }}" type="file" class="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size">
+
     </div>
-
-
-    @if($hasErrorAndShow($name))
-        <x-form-errors :name="$name" />
-    @endif
-
-{!! $help ?? null !!}
-
 </div>
