@@ -15,7 +15,7 @@ use Plugins\Query;
 Route::get('console', [HomeController::class, 'console'])->name('console');
 Route::get('test', function () {
 
-    $notification = new \MBarlow\Megaphone\Types\General(
+    $notification = new \MBarlow\Megaphone\Types\Important(
         'Expected Downtime!', // Notification Title
         'We are expecting some downtime today at around 15:00 UTC for some planned maintenance.', // Notification Body
         'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.

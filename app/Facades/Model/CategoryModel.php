@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class CategoryModel extends \App\Dao\Models\Category
+class CategoryModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

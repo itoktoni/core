@@ -29,7 +29,7 @@ class ReportUserController extends ReportController
 
         $this->data = $this->getData($request);
 
-        $batch = exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 10);
+        $batch = exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 1);
         if ($request->queue == 'batch')
         {
             $url = moduleRoute('getCreate', array_merge(['batch' => $batch->id], $request->all()));

@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class GroupModel extends \App\Dao\Models\Core\SystemGroup
+class GroupModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class MenuModel extends \App\Dao\Models\Core\SystemMenu
+class MenuModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

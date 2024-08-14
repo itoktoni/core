@@ -20,11 +20,12 @@ mix.sass('resources/sass/app.scss', 'public/assets/css/app.min.css')
 .sass('resources/sass/print.scss', 'public/assets/css')
 .purgeCss({
     enabled: true,
-    whitelist: ['page-action', 'table-responsive']
+    whitelist: ['page-action', 'table-responsive', 'badge']
 });
 
 mix.combine([
     'resources/js/jquery.min.js',
+    'resources/js/popper.js',
     'resources/js/bootstrap.min.js',
     'resources/js/stacktable.min.js',
     'resources/js/selectize.min.js',

@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class LinkModel extends \App\Dao\Models\Core\SystemLink
+class LinkModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

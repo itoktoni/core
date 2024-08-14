@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class FilterModel extends \App\Dao\Models\Core\Filters
+class FilterModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -78,4 +78,14 @@ trait SystemGroupEntity
     {
         return $this->{self::field_url()};
     }
+
+    public static function field_name()
+    {
+        return 'system_group_name';
+    }
+
+    public function getFieldNameAttribute()
+    {
+        return $this->{$this->field_name()};
+    }
 }

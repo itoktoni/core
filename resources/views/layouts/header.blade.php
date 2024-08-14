@@ -35,6 +35,16 @@
 
 			<livewire:megaphone></livewire:megaphone>
 
+			<li class="nav-item profile">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">[ {{ Auth::user()->name }} ]</a>
+				<div class="dropdown-menu">
+					<a href="#" class="dropdown-item">My Profile</a>
+					<a href="#" class="dropdown-item">Settings</a>
+					<a href="#" class="dropdown-item">Billing</a>
+					<a href="{{ route('signout') }}" class="dropdown-item">Logout</a>
+				</div>
+			</li>
+
  		</ul>
 
  	</div>

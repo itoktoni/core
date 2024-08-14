@@ -1,3 +1,5 @@
+import '../sass/app.scss';
+
 import './bootstrap';
 
 import ajax from '@imacrayon/alpine-ajax';

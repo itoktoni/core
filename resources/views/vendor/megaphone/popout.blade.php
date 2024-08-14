@@ -42,7 +42,7 @@
         @endif
 
         @foreach ($announcements as $announcement)
-            <div class="w-full p-3 mt-4 bg-white rounded flex flex-shrink-0 {{ $announcement->read_at === null ? "drop-shadow shadow border" : ""  }}">
+            <div class="w-full p-3 mt-2 bg-white rounded flex flex-shrink-0 {{ $announcement->read_at === null ? "drop-shadow shadow border" : ""  }}">
                 <x-megaphone::display :notification="$announcement"></x-megaphone::display>
             </div>
         @endforeach

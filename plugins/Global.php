@@ -10,6 +10,7 @@ use Coderello\SharedData\Facades\SharedData;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MBarlow\Megaphone\Types\BaseAnnouncement;
@@ -297,8 +298,8 @@ if (! function_exists('sendNotification')) {
                 $model = UserModel::find(auth()->user()->id);
             }
 
-            $model->notify($data);
             event(new SendBroadcast($data, $type, $user_id));
+            $model->notify($data);
         }
     }
 }
@@ -316,30 +317,34 @@ if (! function_exists('exportCsv')) {
             $batches[] = new $jobClass($name, Eloquent::serialize($query), $i, $chunkSize, $delimiter);
         }
 
+        $user_id = auth()->user()->id;
+
         $bus = Bus::batch($batches)
-            ->name('Export Users')
-            ->then(function (Batch $batch) use ($name) {
+        ->name('Export Users')
+        ->then(function (Batch $batch) use ($name, $user_id) {
 
                 Storage::disk('public')->put($name, file_get_contents($name));
 
-                $notification = new \MBarlow\Megaphone\Types\General(
+                $notification = new \MBarlow\Megaphone\Types\NewFeature(
                     'Download File Success',
                     'File Ready to download',
                     asset('files/' . $name),
                     'Download'
                 );
 
-                sendNotification($notification);
+                sendNotification($notification, NotificationType::Success, $user_id);
 
             })
-            ->catch(function (Batch $batch, Throwable $e) {
+            ->catch(function (Batch $batch, Throwable $e) use($user_id) {
 
-                $notification = new \MBarlow\Megaphone\Types\General(
+                Log::error($e->getMessage());
+
+                $notification = new \MBarlow\Megaphone\Types\Important(
                     'Download File Error',
                     $e->getMessage(),
                 );
 
-                sendNotification($notification);
+                sendNotification($notification, NotificationType::Error, $user_id);
 
             })
             ->finally(function (Batch $batch) use ($name) {

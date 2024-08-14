@@ -311,15 +311,3 @@ addEventListener("htmx:afterSettle", (event) => {
         plugins: ["remove_button"],
     });
 });
-
-document.onreadystatechange = function() {
-    if (document.readyState !== "complete") {
-        NProgress.start();
-        NProgress.set(0.9);
-    } else {
-        NProgress.done();
-        NProgress.remove();
-    }
-    NProgress.done();
-    NProgress.remove();
-};

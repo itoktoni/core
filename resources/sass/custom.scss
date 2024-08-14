@@ -642,7 +642,7 @@ body {
 
 .wrap-circles {
     position: absolute;
-    right: 50px;
+    right: 130px;
     top: -30px;
     display: flex;
     flex-wrap: wrap;
@@ -713,7 +713,7 @@ body {
   }
 
   .megaphone p.leading-3{
-    margin-left: 15px;
+    margin-left: 0px;
   }
 
   .megaphone .aspect-square.rounded-full{
@@ -786,6 +786,7 @@ body {
   }
   .megaphone .h-screen {
     height: 100vh;
+    width: 100%;
   }
   .megaphone .h-6 {
     height: 1.5rem;
@@ -814,7 +815,7 @@ body {
     width: 2rem;
   }
   .megaphone .w-4\/5 {
-    width: 80%;
+    width: 60%;
   }
   .megaphone .flex-shrink-0 {
     flex-shrink: 0;
@@ -1062,14 +1063,40 @@ body {
   }
   @media (min-width: 1536px) {
     .megaphone .\32xl\:w-4\/12 {
-      width: 33.333333%;
+      width: 30%;
       }
 
 
   }
 
   @media (min-width: 1200px) {
-    .megaphone .bg-gray-50.shadow-md{
-      width: 33.333333%;
+    .megaphone .h-screen{
+      width: 30%;
+    }
+  }
+
+  .profile{
+    position: absolute;
+    right: 55px;
+    display: block !important;
+
+    .dropdown-toggle{
+      &::after{
+        margin-left: 0.5em;
+      }
+    }
+  }
+
+  .megaphone{
+    .w-8{
+      button{
+        border-radius: 5px;
+      }
+    }
+
+    .bg-white{
+      border-radius: 5px;
+      border: .5px solid #ced4da;
+      padding-bottom: 0.5rem !important;
     }
   }

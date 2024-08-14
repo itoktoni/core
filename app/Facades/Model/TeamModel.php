@@ -4,7 +4,7 @@ namespace App\Facades\Model;
 
 use Illuminate\Support\Facades\Facade;
 
-class TeamModel extends \App\Dao\Models\Core\Team
+class TeamModel extends Facade
 {
     protected static function getFacadeAccessor()
     {

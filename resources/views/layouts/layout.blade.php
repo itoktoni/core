@@ -3,7 +3,7 @@
 @include('layouts.meta')
 
 <head>
-    <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
+    @vite(['resources/js/vite.js'])
     @livewireStyles
 </head>
 
@@ -31,8 +31,6 @@
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    @vite(['resources/js/vite.js'])
 
     @stack('footer')
 

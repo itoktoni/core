@@ -40,4 +40,14 @@ trait SystemRoleEntity
     {
         return $this->{$this->field_level()};
     }
+
+    public static function field_name()
+    {
+        return 'system_role_name';
+    }
+
+    public function getFieldNameAttribute()
+    {
+        return $this->{$this->field_name()};
+    }
 }
