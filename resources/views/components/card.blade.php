@@ -20,7 +20,7 @@ $attributes = $attributes->class([
         <h4 class="card-title">{{ $label }}</h4>
       </div>
     <div class="card-body">
-        <div class="row">
+        <div class="row pt-2">
             {{ $slot }}
         </div>
     </div>

@@ -2,22 +2,23 @@
 $class = 'form-control';
 @endphp
 
-<div class="@if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
+<div class="mt-2 mb-2 @if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
     <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
 
-
     @if(!empty($prepend) or !empty($append) or !empty($button) or !empty($icon) or !empty($toggle))
-        <div class="input-group input-group-merge">
+        <div class="input-group">
     @endif
 
     @if(!empty($prepend))
-            <div class="input-group-text">
-                {!! $prepend !!}
-            </div>
+        <div class="input-group-text">
+            {!! $prepend !!}
+        </div>
     @endif
 
     @if(!empty($toggle))
-            <button class="btn btn-default filter" type="button">{{ __($toggle) }}</button>
+        <div class="input-group-text">
+            {!! $toggle !!}
+        </div>
     @endif
 
     <input
@@ -44,18 +45,18 @@ $class = 'form-control';
     />
 
     @if(!empty($append))
-            <div class="input-group-text">
-                {!! $append !!}
-            </div>
+        <div class="input-group-text">
+            {!! $append !!}
+        </div>
     @endif
 
     @if(!empty($button))
-        <button class="btn btn-default" type="submit">{{ __($button) }}</button>
+        <button class="btn btn-primary" type="submit">{{ __($button) }}</button>
     @endif
 
     @if(!empty($icon))
-        <button class="btn btn-default" type="submit">
-            <i class="bi bi-{{ $icon }}"></i>
+        <button class="btn btn-primary" type="submit">
+            Search
         </button>
     @endif
 

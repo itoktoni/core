@@ -2,10 +2,10 @@
 $class = 'form-control';
 @endphp
 
-<div class="@if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
+<div class="mt-2 mb-2 @if($type === 'hidden') d-none @else form-group @endif{{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
     <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
 
-    <div >
+    <div>
         <input
         name="{{ $name }}"
         type="file"

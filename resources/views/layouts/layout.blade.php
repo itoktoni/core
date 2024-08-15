@@ -3,7 +3,7 @@
 <html
   lang="en"
   class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
-  dir="ltr"
+
   data-theme="theme-default"
   data-assets-path=""
   data-template="vertical-menu-template-no-customizer"
@@ -547,6 +547,7 @@
     <script src="{{ url('assets/vendor/libs/jquery/jquery.js') }}"></script>
     <script src="{{ url('assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ url('assets/vendor/js/bootstrap.js') }}"></script>
+
     <script src="{{ url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ url('assets/vendor/js/menu.js') }}"></script>
 

@@ -1,4 +1,6 @@
-<div class="form-group {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
+
+
+<div class="form-group mt-2 mb-2 {{ $col }} {{ $errors->has($name) ? 'has-error' : '' }}">
     <x-form-label :label="$label" :for="$attributes->get('id') ?: $id()" />
 
     @if((!empty($prepend) or !empty($append)))
@@ -6,9 +8,7 @@
     @endif
 
     @if(!empty($prepend))
-    <div class="input-group-prepend">
         <label class="input-group-text" for="{{ $id }}">{{ __($prepend) }}</label>
-    </div>
     @endif
 
     <select
@@ -29,7 +29,7 @@
         @endif
 
         @php
-        $class = 'form-control';
+        $class = 'form-control form-select';
         if($api){
             $class = $class.' '.$api;
         }
@@ -58,9 +58,7 @@
     </select>
 
     @if(!empty($append))
-		<div class="input-group-append">
 			<label class="input-group-text" for="{{ $id }}">{{ __($append) }}</label>
-		</div>
 		@endif
 
 	@if((!empty($prepend) or !empty($append)))

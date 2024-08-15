@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ url('assets/vendor/css/rtl/theme-bordered.css') }}" />
     <link rel="stylesheet" href="{{ url('assets/css/demo.css') }}" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ url('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
