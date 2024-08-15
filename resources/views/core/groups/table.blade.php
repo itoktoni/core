@@ -20,7 +20,7 @@
                             <thead>
                                 <tr>
                                     <th width="9" class="center">
-                                        <input class="btn-check-d" type="checkbox">
+                                        <input class="btn-check-d form-check-input" type="checkbox">
                                     </th>
                                     <th class="text-center column-action">{{ __('Action') }}</th>
                                     @foreach ($fields as $value)
@@ -38,7 +38,7 @@
                                 @forelse($data as $table)
                                     <tr>
                                         <td>
-                                            <input type="checkbox" class="checkbox" name="code[]"
+                                            <input type="checkbox" class="checkbox form-check-input" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
                                         <td class="col-md-2 text-center column-action">

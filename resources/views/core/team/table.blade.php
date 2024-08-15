@@ -36,7 +36,7 @@
                                 @forelse($data as $table)
                                     <tr>
                                         <td>
-                                            <input type="checkbox" class="checkbox" name="code[]"
+                                            <input type="checkbox" class="checkbox form-check-input" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
                                         <td class="col-md-2 text-center column-action">

@@ -17,7 +17,7 @@
         $show_toggle = $show ? 'collapse show' : 'collapse';
 
         $attributes = $attributes->class([
-        'container-fluid',
+        'container-fluid mt-5 mb-5',
         ])->merge([
 
         ]);

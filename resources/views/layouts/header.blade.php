@@ -1,62 +1,37 @@
- <!-- begin::header -->
- <div class="header">
+<!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url('assets/img/favicon/favicon.ico') }}" />
 
- 	<div>
- 		<ul class="navbar-nav">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
+      rel="stylesheet" />
 
- 			<li class="nav-item dropdown">
- 				<a href="#" class="nav-link header-title" title="User menu" data-toggle="dropdown" aria-expanded="false">
- 					<h1>{{ env('APP_TITLE', env('APP_NAME', 'SYSTEM')) }}</h1>
- 				</a>
-             </li>
+    <!-- Icons -->
+    <link rel="stylesheet" href="{{ url('assets/vendor/fonts/remixicon/remixicon.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/fonts/flag-icons.css') }}" />
 
-			 @if(Session::get('navigation') && env('BREADCRUMB_ENABLED', false))
-			 @forelse (collect(Session::get('navigation'))->take(6) as $breadcrumb)
-			 <li class="nav-item" style="margin-right: 10px">
-				 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-					<a href="{{ $breadcrumb['url'] }}" class="nav-link btn btn-primary btn-sm" title="Hide navigation">
-						{{ $breadcrumb['menu_name'] }}
-					</a>
-					<a class="btn btn-dark" href="{{ route('delete_url', ['code' => $breadcrumb['menu_action']]) }}">x</a>
-				</div>
-			 </li>
-			 @empty
-			 @endforelse
+    <!-- Menu waves for no-customizer fix -->
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/node-waves/node-waves.css') }}" />
 
-			@endif
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/rtl/core.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/rtl/theme-bordered.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/css/demo.css') }}" />
 
- 			<li class="nav-item navigation-toggler mobile-toggler">
- 				<a href="#" class="nav-link" title="Show navigation">
- 					<i class="bi bi-list"></i>
-				 </a>
- 			</li>
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/typeahead-js/typeahead.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/libs/swiper/swiper.css') }}" />
 
-			@livewire('progress')
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/pages/cards-statistics.css') }}" />
+    <link rel="stylesheet" href="{{ url('assets/vendor/css/pages/cards-analytics.css') }}" />
 
-			<livewire:megaphone></livewire:megaphone>
-
-			<li class="nav-item profile">
-				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">[ {{ Auth::user()->name }} ]</a>
-				<div class="dropdown-menu">
-					<a href="#" class="dropdown-item">My Profile</a>
-					<a href="#" class="dropdown-item">Settings</a>
-					<a href="#" class="dropdown-item">Billing</a>
-					<a href="{{ route('signout') }}" class="dropdown-item">Logout</a>
-				</div>
-			</li>
-
- 		</ul>
-
- 	</div>
-
- 	<div style="margin-right: 50px;">
-
- 		<ul class="navbar-nav">
-			<li class="nav-item ">
-			</li>
- 		</ul>
- 	</div>
-
-
- </div>
- <!-- end::header -->
+    <!-- Helpers -->
+    <script src="{{ url('assets/vendor/js/helpers.js') }}"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ url('assets/js/config.js') }}"></script>

@@ -515,25 +515,27 @@ body {
     z-index: 3 !important;
     bottom: 37px !important;
     position: fixed !important;
-    right: 0px !important;
+    right: 1.5rem !important;
     z-index: 10;
     height: 20px;
-    width: calc(100% - #{$navigation-width});
+    width: calc(100% - 1.5rem * 2 - 16.25rem);
     margin: 0px;
 
     @media (max-width: 800px) {
-        width: 100%;
+      width: 100%;
     }
 
     .action-container{
-        box-shadow: 0 3px 10px rgb(62 85 120 / 7%);
-        text-align: right;
+      box-shadow: 0 3px 10px rgb(62 85 120 / 7%);
+      text-align: right;
 
-        .button-action{
-            width: 100%;
-            padding: 10px 1rem;
-            background: #fff;
-            border-top: 0.5px solid #ced4da;
+      .button-action{
+          width: 100%;
+          padding: 10px 1rem;
+          background: #fff;
+          border: 0.7px solid #ced4da;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
         }
     }
 
