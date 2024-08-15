@@ -2,16 +2,14 @@
 
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Enums\Core\NotificationType;
-use App\Dao\Models\Core\User;
-use App\Events\SendBell;
-use App\Events\SendBroadcast;
-use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\HomeController;
+use App\Http\Controllers\Core\PublicController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Plugins\Query;
 
+Route::get('/', [PublicController::class, 'homepage'])->name('homepage');
 Route::get('console', [HomeController::class, 'console'])->name('console');
 Route::get('test', function () {
 
@@ -25,12 +23,6 @@ Route::get('test', function () {
     sendNotification($notification, NotificationType::Error);
 
 });
-
-Route::get('/', function () {
-
-    return redirect('home');
-
-})->name('one');
 
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
