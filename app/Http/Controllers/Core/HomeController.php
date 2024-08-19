@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Core;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\Dashboard;
+use App\Dao\Traits\RedirectAuth;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+
+    use RedirectAuth;
+
     /**
      * Create a new controller instance.
      *
@@ -28,10 +32,6 @@ class HomeController extends Controller
      */
     public function index(Dashboard $chart)
     {
-        if(auth()->check() && auth()->user()->active == false){
-            return redirect()->route('login');
-        }
-
         return view('core.home.dashboard', [
             'chart' => $chart->build(),
         ]);

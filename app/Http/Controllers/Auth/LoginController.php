@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Dao\Traits\RedirectAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class LoginController extends Controller
     |
      */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, RedirectAuth;
 
     /**
      * Where to redirect users after login.
@@ -48,11 +49,12 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if (auth()->user()->group != 'customer') {
-            return route('home');
-        } else {
-            return url()->to(config('app.url'));
+        if (method_exists($this, 'redirectAuthCustom'))
+        {
+            return $this->redirectAuthCustom();
         }
+
+        return route('home');
     }
 
     public function findUsername()

@@ -11,8 +11,10 @@ use App\Dao\Traits\DataTableTrait;
 use App\Dao\Traits\OptionTrait;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
+use App\Notifications\VerifyUserQueue;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\BroadcastsEvents;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as AuthMustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,8 +26,11 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 use MBarlow\Megaphone\HasMegaphone;
 
 class User extends Authenticatable
+implements AuthMustVerifyEmail
 {
-    use HasFactory, HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
+    use
+    MustVerifyEmail ,
+    HasFactory, HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
@@ -41,6 +46,7 @@ class User extends Authenticatable
         'level',
         'vendor',
         'active',
+        'email_verified_at',
     ];
 
     public $sortable = [
@@ -118,5 +124,15 @@ class User extends Authenticatable
         $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));
 
         return $query;
+    }
+
+     /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyUserQueue());
     }
 }

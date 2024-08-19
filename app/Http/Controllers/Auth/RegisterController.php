@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Dao\Traits\RedirectAuth;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -22,7 +23,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, RedirectAuth;
 
     /**
      * Where to redirect users after registration.
@@ -73,5 +74,15 @@ class RegisterController extends Controller
             ]);
         }
 
+    }
+
+    public function redirectTo()
+    {
+        if (method_exists($this, 'redirectAuthCustom'))
+        {
+            return $this->redirectAuthCustom();
+        }
+
+        return route('home');
     }
 }

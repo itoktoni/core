@@ -7,6 +7,8 @@ use App\Events\SendBell;
 use App\Events\SendBroadcast;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\HomeController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PublicController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,11 +28,6 @@ Route::get('test', function () {
 
 });
 
-Route::get('/', function () {
-
-    return redirect('home');
-
-})->name('one');
 
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
@@ -38,7 +35,10 @@ Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')-
 Route::get('/doc', 'App\Http\Controllers\Core\HomeController@doc')->middleware(['access'])->name('doc');
 
 Route::match(['POST', 'GET'], 'change-password', 'App\Http\Controllers\Core\UserController@changePassword', ['name' => 'change-password'])->middleware('auth');
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::get('/', [PublicController::class, 'index'])->name('public');
+Route::post('/checkout', [PublicController::class, 'checkout'])->middleware('auth')->name('checkout');
 
 try {
     $routes = Query::groups();

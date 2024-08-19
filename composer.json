@@ -42,7 +42,8 @@
         "symfony/process": "^6.4",
         "touhidurabir/laravel-model-sanitize": "^1.1",
         "wildside/userstamps": "^2.2",
-        "wnx/laravel-backup-restore": "^1.0"
+        "wnx/laravel-backup-restore": "^1.0",
+        "xendit/xendit-php": "^6.0"
     },
     "require-dev": {
         "andreaselia/laravel-api-to-postman": "^1.13",
